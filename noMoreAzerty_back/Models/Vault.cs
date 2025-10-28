@@ -2,19 +2,19 @@
 {
     public class Vault
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string HashPassword { get; set; }
-        public string PasswordSalt { get; set; }
+        public Guid Id { get; set; }
+        public string? Name { get; set; }
+        public string? HashPassword { get; set; }
+        public string? PasswordSalt { get; set; }
         public DateTime CreatedAt { get; set; }
 
         // Foreign Key
-        public string UserId { get; set; }
-        public User User { get; set; }
+        public Guid UserId { get; set; }
+        public User? User { get; set; }
 
         // Navigation
-        public ICollection<VaultEntry> VaultEntries { get; set; }
-        public ICollection<VaultEntryHistory> VaultEntryHistories { get; set; }
-        public ICollection<Share> Shares { get; set; }
+        public HashSet<VaultEntry>? VaultEntries { get; set; }
+        public HashSet<VaultEntryHistory>? VaultEntryHistories { get; set; }
+        public HashSet<Share>? Shares { get; set; }
     }
 }

@@ -58,14 +58,14 @@ namespace MyApiProject.Data
                 .HasOne(s => s.User)
                 .WithMany(u => u.Shares)
                 .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict); // supprime la cascade
 
             // Vault ↔ Share (N:N via Share table)
             modelBuilder.Entity<Share>()
                 .HasOne(s => s.Vault)
                 .WithMany(v => v.Shares)
                 .HasForeignKey(s => s.VaultId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict); // supprime la cascade
 
             // === Configurations optionnelles ===
             modelBuilder.Entity<User>().ToTable("Users");

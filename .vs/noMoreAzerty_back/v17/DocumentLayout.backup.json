@@ -1,7 +1,68 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\nomoreazerty_back.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\nomoreazerty_back.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\usecases\\users\\getorcreatecurrentuserusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\usecases\\users\\getorcreatecurrentuserusecase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\models\\vaultentryhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\models\\vaultentryhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\models\\vault.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\models\\vault.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\models\\vaultentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\models\\vaultentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\enums\\vaultentryaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\enums\\vaultentryaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\models\\share.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\models\\share.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\dtos\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\dtos\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|c:\\users\\hugo1\\source\\repos\\nomoreazerty_back\\nomoreazerty_back\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6F41EEA-95C7-4CC5-9A01-0897EF5C03DE}|noMoreAzerty_back\\noMoreAzerty_back.csproj|solutionrelative:nomoreazerty_back\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,6 +87,199 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetOrCreateCurrentUserUseCase.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\UseCases\\Users\\GetOrCreateCurrentUserUseCase.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\UseCases\\Users\\GetOrCreateCurrentUserUseCase.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\UseCases\\Users\\GetOrCreateCurrentUserUseCase.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\UseCases\\Users\\GetOrCreateCurrentUserUseCase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T14:45:36.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VaultEntryAction.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Enums\\VaultEntryAction.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Enums\\VaultEntryAction.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Enums\\VaultEntryAction.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Enums\\VaultEntryAction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T14:06:20.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\User.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\User.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T13:16:54.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Controllers\\UserController.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAQwCMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T12:36:28.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Share.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\Share.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Models\\Share.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\Share.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Models\\Share.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T15:42:28.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VaultEntryHistory.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\VaultEntryHistory.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Models\\VaultEntryHistory.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\VaultEntryHistory.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Models\\VaultEntryHistory.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwBYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T15:38:56.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "VaultEntry.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\VaultEntry.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Models\\VaultEntry.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\VaultEntry.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Models\\VaultEntry.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwBkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T15:38:21.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Vault.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\Vault.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Models\\Vault.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Models\\Vault.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Models\\Vault.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T15:37:25.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "noMoreAzerty_back.csproj",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\noMoreAzerty_back.csproj",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj*",
+              "RelativeToolTip": "noMoreAzerty_back\\noMoreAzerty_back.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-27T13:59:32.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\appsettings.json",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\appsettings.json",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\appsettings.json",
+              "RelativeToolTip": "noMoreAzerty_back\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-27T13:55:43.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CreateUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\DTOs\\CreateUserDto.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\DTOs\\CreateUserDto.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\DTOs\\CreateUserDto.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\DTOs\\CreateUserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T11:21:48.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Program.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Program.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Program.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T14:03:21.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "noMoreAzerty_back\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAgwEkAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T14:00:07.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\appsettings.Development.json",
+              "RelativeToolTip": "noMoreAzerty_back\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-27T13:55:42.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "noMoreAzerty_back\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\Properties\\launchSettings.json",
+              "RelativeToolTip": "noMoreAzerty_back\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-27T13:54:24.568Z"
             }
           ]
         }
