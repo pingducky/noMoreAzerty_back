@@ -1,15 +1,5 @@
 [
   {
-    "ContainingType": "MyApiProject.Controllers.UsersController",
-    "Method": "GetCurrentUser",
-    "RelativePath": "api/Users/me",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
     "Method": "GetAll",
     "RelativePath": "api/Vault",

@@ -1,12 +1,12 @@
-﻿// Controllers/VaultController.cs
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.UseCases.Vaults;
-using System.Threading.Tasks;
 
 namespace noMoreAzerty_back.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class VaultController : ControllerBase
     {
         private readonly GetAllVaultsUseCase _getAllVaultsUseCase;

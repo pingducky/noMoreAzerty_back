@@ -8,11 +8,12 @@
     ".NETCoreApp,Version=v8.0": {
       "noMoreAzerty_back/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.21",
           "Microsoft.AspNetCore.OpenApi": "8.0.11",
           "Microsoft.EntityFrameworkCore": "9.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.10",
-          "Microsoft.Identity.Web": "4.0.1",
+          "Microsoft.Identity.Web": "3.14.1",
           "Microsoft.Identity.Web.MicrosoftGraph": "4.0.1",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
@@ -91,14 +92,14 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.0": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.21": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.14.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.23.53112"
+            "assemblyVersion": "8.0.21.0",
+            "fileVersion": "8.0.2125.47515"
           }
         }
       },
@@ -805,7 +806,7 @@
           }
         }
       },
-      "Microsoft.Identity.Web/4.0.1": {
+      "Microsoft.Identity.Web/3.14.1": {
         "dependencies": {
           "Microsoft.Identity.Web.Certificate": "4.0.1",
           "Microsoft.Identity.Web.Certificateless": "4.0.1",
@@ -818,8 +819,8 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.Identity.Web.dll": {
-            "assemblyVersion": "4.0.1.0",
-            "fileVersion": "4.0.1.0"
+            "assemblyVersion": "3.14.1.0",
+            "fileVersion": "3.14.1.0"
           }
         }
       },
@@ -876,7 +877,7 @@
       },
       "Microsoft.Identity.Web.TokenAcquisition/4.0.1": {
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.21",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "8.0.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "8.0.0",
           "Microsoft.Identity.Abstractions": "9.5.0",
@@ -1810,12 +1811,12 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.0": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.21": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rwxaZYHips5M9vqxRkGfJthTx+Ws4O4yCuefn17J371jL3ouC5Ker43h2hXb5yd9BMnImE9rznT75KJHm6bMgg==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.0",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.0.nupkg.sha512"
+      "sha512": "sha512-ZuUpJ4DvmVArmTlyGGg+b9IdKgd8Kw0SmEzhjy4dQw8R6rxfNqCXfGvGm3ld7xlrgthJFou/le9tadsSyjFLuw==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.21",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.21.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.OpenIdConnect/8.0.0": {
       "type": "package",
@@ -2125,12 +2126,12 @@
       "path": "microsoft.identity.client.extensions.msal/4.61.3",
       "hashPath": "microsoft.identity.client.extensions.msal.4.61.3.nupkg.sha512"
     },
-    "Microsoft.Identity.Web/4.0.1": {
+    "Microsoft.Identity.Web/3.14.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rfzHpEoKgYXy6gK/eD5U1tVeq/CwImorjTPCHICCutM1gTpFOg9dE+fPYz4MLjyNk+0dByYVaPi9KHi6Ak6CIQ==",
-      "path": "microsoft.identity.web/4.0.1",
-      "hashPath": "microsoft.identity.web.4.0.1.nupkg.sha512"
+      "sha512": "sha512-UjS1NpyVeLFK/orYvg4a00O2AdLA7NV/B+fhiaRhHQwpWFWS2jS7nrEWm0WUt9fQD+jJMNfnMVRj4ow3BFBcMg==",
+      "path": "microsoft.identity.web/3.14.1",
+      "hashPath": "microsoft.identity.web.3.14.1.nupkg.sha512"
     },
     "Microsoft.Identity.Web.Certificate/4.0.1": {
       "type": "package",

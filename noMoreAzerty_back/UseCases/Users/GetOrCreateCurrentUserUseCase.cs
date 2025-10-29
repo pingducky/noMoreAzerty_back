@@ -1,7 +1,7 @@
 ﻿using noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Models;
 
-namespace MyApiProject.UseCases.Users
+namespace noMoreAzerty_back.UseCases.Users
 {
     public class GetOrCreateCurrentUserUseCase
     {
