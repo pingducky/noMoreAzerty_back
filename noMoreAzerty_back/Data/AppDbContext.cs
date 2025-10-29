@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using noMoreAzerty_back.Models;
 
-namespace MyApiProject.Data
+namespace noMoreAzerty_back.Data
 {
     public class AppDbContext : DbContext
     {

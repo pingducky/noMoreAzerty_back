@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyApiProject.Data;
-using MyApiProject.Interfaces;
+using noMoreAzerty_back.Data;
+using noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Models;
 
-namespace MyApiProject.Repositories
+namespace noMoreAzerty_back.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -21,7 +21,7 @@ namespace MyApiProject.Repositories
 
         public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user);    
         }
 
         public async Task SaveChangesAsync()

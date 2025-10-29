@@ -10,22 +10,13 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__1",
-    "RelativePath": "weatherforecast",
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetAll",
+    "RelativePath": "api/Vault",
     "HttpMethod": "GET",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "WeatherForecast[]",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
   }
 ]

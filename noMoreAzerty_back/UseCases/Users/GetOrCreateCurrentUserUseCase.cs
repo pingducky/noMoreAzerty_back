@@ -1,4 +1,4 @@
-﻿using MyApiProject.Interfaces;
+﻿using noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Models;
 
 namespace MyApiProject.UseCases.Users

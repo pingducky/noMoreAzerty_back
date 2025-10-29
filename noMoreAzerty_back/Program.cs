@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyApiProject.Data;
-using MyApiProject.Interfaces;
-using MyApiProject.Repositories;
-using MyApiProject.UseCases.Users;
+using noMoreAzerty_back.Data;
+using noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
-
+using noMoreAzerty_back.UseCases.Vaults;
+using MyApiProject.UseCases.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +23,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // ----------------------------------------------------
 // 3️⃣ Configuration Authentication / Authorization
-// (nécessaire si tu utilises [Authorize])
 // ----------------------------------------------------
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
@@ -33,8 +32,13 @@ builder.Services.AddAuthorization();
 // ----------------------------------------------------
 // 4️⃣ Enregistrement des dépendances custom
 // ----------------------------------------------------
+// 🧩 Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IVaultRepository, VaultRepository>(); // 👈 Ajout
+
+// 🧠 Use Cases
 builder.Services.AddScoped<GetOrCreateCurrentUserUseCase>();
+builder.Services.AddScoped<GetAllVaultsUseCase>(); // 👈 Ajout
 
 // ----------------------------------------------------
 // 5️⃣ Controllers & CORS
@@ -72,29 +76,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// ----------------------------------------------------
-// 8️⃣ Exemple endpoint "WeatherForecast"
-// ----------------------------------------------------
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild",
-    "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast(
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
 // ----------------------------------------------------
 // 9️⃣ Run App
