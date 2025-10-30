@@ -171,7 +171,6 @@ C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.pdb
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.genruntimeconfig.cache
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\ref\noMoreAzerty_back.dll
-C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Azure.Security.KeyVault.Certificates.dll
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Azure.Security.KeyVault.Secrets.dll
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
@@ -192,3 +191,4 @@ C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.IdentityModel.LoggingExtensions.dll
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.IdentityModel.Validators.dll
 C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\hugo1\source\repos\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

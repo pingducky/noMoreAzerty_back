@@ -5,7 +5,19 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Vault": {
+    "/api/Vault/my": {
+      "get": {
+        "tags": [
+          "Vault"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault/shared": {
       "get": {
         "tags": [
           "Vault"

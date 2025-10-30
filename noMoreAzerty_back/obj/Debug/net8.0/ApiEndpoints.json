@@ -1,8 +1,18 @@
 [
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
-    "Method": "GetAll",
-    "RelativePath": "api/Vault",
+    "Method": "GetMyVaults",
+    "RelativePath": "api/Vault/my",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetSharedVaults",
+    "RelativePath": "api/Vault/shared",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

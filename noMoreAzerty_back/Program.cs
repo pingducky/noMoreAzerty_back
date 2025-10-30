@@ -28,6 +28,8 @@ builder.Services.AddScoped<IVaultRepository, VaultRepository>();
 
 builder.Services.AddScoped<GetOrCreateCurrentUserUseCase>();
 builder.Services.AddScoped<GetAllVaultsUseCase>();
+builder.Services.AddScoped<GetUserVaultsUseCase>();
+builder.Services.AddScoped<GetSharedVaultsUseCase>();
 
 
 builder.Services.AddControllers();

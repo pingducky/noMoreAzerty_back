@@ -31,8 +31,7 @@ namespace noMoreAzerty_back.Middlewares
 
             // 2. Récupère le GUID Entra ID
             var oidClaim = context.User.FindFirst("oid")?.Value
-                ?? context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+                     ?? context.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value ?? null;
             if (string.IsNullOrWhiteSpace(oidClaim) || !Guid.TryParse(oidClaim, out var userGuid))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;

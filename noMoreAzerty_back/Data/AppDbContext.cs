@@ -14,65 +14,167 @@ namespace noMoreAzerty_back.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // === TABLE Share : clé composite ===
-            modelBuilder.Entity<Share>()
-                .HasKey(s => new { s.UserId, s.VaultId });
-
-            // User ↔ Vault (1:N)
+            // Relations (inchangées)
+            modelBuilder.Entity<Share>().HasKey(s => new { s.UserId, s.VaultId });
             modelBuilder.Entity<Vault>()
                 .HasOne(v => v.User)
                 .WithMany(u => u.Vaults)
                 .HasForeignKey(v => v.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Vault ↔ VaultEntry (1:N)
             modelBuilder.Entity<VaultEntry>()
                 .HasOne(e => e.Vault)
                 .WithMany(v => v.VaultEntries)
                 .HasForeignKey(e => e.VaultId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Vault ↔ VaultEntryHistory (1:N)
             modelBuilder.Entity<VaultEntryHistory>()
                 .HasOne(h => h.Vault)
                 .WithMany(v => v.VaultEntryHistories)
                 .HasForeignKey(h => h.VaultId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // User ↔ VaultEntryHistory (1:N)
             modelBuilder.Entity<VaultEntryHistory>()
                 .HasOne(h => h.User)
                 .WithMany(u => u.VaultEntryHistories)
                 .HasForeignKey(h => h.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // VaultEntry ↔ VaultEntryHistory (1:N)
             modelBuilder.Entity<VaultEntryHistory>()
                 .HasOne(h => h.VaultEntry)
                 .WithMany(e => e.VaultEntryHistories)
                 .HasForeignKey(h => h.VaultEntryId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // User ↔ Share (N:N via Share table)
             modelBuilder.Entity<Share>()
                 .HasOne(s => s.User)
                 .WithMany(u => u.Shares)
                 .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // supprime la cascade
-
-            // Vault ↔ Share (N:N via Share table)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Share>()
                 .HasOne(s => s.Vault)
                 .WithMany(v => v.Shares)
                 .HasForeignKey(s => s.VaultId)
-                .OnDelete(DeleteBehavior.Restrict); // supprime la cascade
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // === Configurations optionnelles ===
+            // === Config tables ===
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Vault>().ToTable("Vault");
             modelBuilder.Entity<VaultEntry>().ToTable("VaultEntry");
             modelBuilder.Entity<VaultEntryHistory>().ToTable("VaultEntryHistory");
             modelBuilder.Entity<Share>().ToTable("Share");
+
+            // === SEEDING (avec valeurs fixes) ===
+            var userId = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
+            var vaultId = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb");
+            var entry1Id = Guid.Parse("cccccccc-cccc-cccc-cccc-cccccccccccc");
+            var entry2Id = Guid.Parse("dddddddd-dddd-dddd-dddd-dddddddddddd");
+            var historyId = Guid.Parse("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee");
+
+            var createdAt = new DateTime(2024, 01, 01);
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = userId,
+                    CreatedAt = createdAt,
+                    LastLogin = createdAt,
+                    IsActive = true
+                }
+            );
+
+            modelBuilder.Entity<Vault>().HasData(
+                new Vault
+                {
+                    Id = vaultId,
+                    Name = "Vault personnel",
+                    HashPassword = "hashed-password-demo",
+                    PasswordSalt = "random-salt-demo",
+                    CreatedAt = createdAt,
+                    UserId = userId
+                }
+            );
+
+            modelBuilder.Entity<VaultEntry>().HasData(
+                new VaultEntry
+                {
+                    Id = entry1Id,
+                    CipherTitle = "cipher_gmail_title",
+                    TitleIV = "iv1",
+                    TitleTag = "tag1",
+                    CipherUsername = "cipher_gmail_user",
+                    UsernameIV = "iv2",
+                    UsernameTag = "tag2",
+                    CipherPassword = "cipher_gmail_password",
+                    PasswordIV = "iv3",
+                    PasswordTag = "tag3",
+                    CipherUrl = "cipher_gmail_url",
+                    UrlIV = "iv4",
+                    UrlTag = "tag4",
+                    CipherCommentary = "cipher_comment",
+                    ComentaryIV = "iv5",
+                    ComentaryTag = "tag5",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    IsActive = true,
+                    VaultId = vaultId
+                },
+                new VaultEntry
+                {
+                    Id = entry2Id,
+                    CipherTitle = "cipher_github_title",
+                    TitleIV = "iv6",
+                    TitleTag = "tag6",
+                    CipherUsername = "cipher_github_user",
+                    UsernameIV = "iv7",
+                    UsernameTag = "tag7",
+                    CipherPassword = "cipher_github_password",
+                    PasswordIV = "iv8",
+                    PasswordTag = "tag8",
+                    CipherUrl = "cipher_github_url",
+                    UrlIV = "iv9",
+                    UrlTag = "tag9",
+                    CipherCommentary = "cipher_comment2",
+                    ComentaryIV = "iv10",
+                    ComentaryTag = "tag10",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    IsActive = true,
+                    VaultId = vaultId
+                }
+            );
+
+            modelBuilder.Entity<VaultEntryHistory>().HasData(
+                new VaultEntryHistory
+                {
+                    Id = historyId,
+                    CipherTitle = "cipher_history_title",
+                    TitleIV = "hiv1",
+                    TitleTag = "htag1",
+                    CipherUsername = "cipher_history_user",
+                    UsernameIV = "hiv2",
+                    UsernameTag = "htag2",
+                    CipherPassword = "cipher_history_pass",
+                    PasswordIV = "hiv3",
+                    PasswordTag = "htag3",
+                    CipherUrl = "cipher_history_url",
+                    UrlIV = "hiv4",
+                    UrlTag = "htag4",
+                    CipherCommentary = "cipher_history_comment",
+                    ComentaryIV = "hiv5",
+                    ComentaryTag = "htag5",
+                    CreatedAt = createdAt,
+                    UpdatedAt = createdAt,
+                    Action = noMoreAzerty_back.Models.Enums.VaultEntryAction.Created,
+                    VaultId = vaultId,
+                    UserId = userId,
+                    VaultEntryId = entry1Id
+                }
+            );
+
+            modelBuilder.Entity<Share>().HasData(
+                new Share
+                {
+                    UserId = userId,
+                    VaultId = vaultId,
+                    AddedAt = createdAt
+                }
+            );
 
             base.OnModelCreating(modelBuilder);
         }
