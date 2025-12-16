@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj": {}
+    "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj": {
+    "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
+        "projectUniqueName": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
         "projectName": "noMoreAzerty_back",
-        "projectPath": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
+        "projectPath": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
         "packagesPath": "C:\\Users\\hugo1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hugo1\\source\\repos\\noMoreAzerty_back\\noMoreAzerty_back\\obj\\",
+        "outputPath": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,12 +44,16 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.*, )"
@@ -86,6 +90,10 @@
               "target": "Package",
               "version": "[4.0.1, )"
             },
+            "NoMoreAzerty.Shared": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -110,7 +118,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

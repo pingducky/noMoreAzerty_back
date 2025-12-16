@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "CreateVault",
+    "RelativePath": "api/Vault",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CreateVaultRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
     "Method": "GetMyVaults",
     "RelativePath": "api/Vault/my",
     "HttpMethod": "GET",

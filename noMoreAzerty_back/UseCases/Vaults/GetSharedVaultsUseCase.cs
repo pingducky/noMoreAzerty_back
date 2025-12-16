@@ -1,4 +1,3 @@
-using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
 
 namespace noMoreAzerty_back.UseCases.Vaults

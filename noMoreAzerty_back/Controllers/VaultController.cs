@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.UseCases.Vaults;
 using System.Security.Claims;
 using Microsoft.Extensions.Logging;
+using noMoreAzerty_dto.Dtos.Request;
 
 
 namespace noMoreAzerty_back.Controllers
@@ -15,15 +16,17 @@ namespace noMoreAzerty_back.Controllers
         private readonly GetUserVaultsUseCase _getUserVaultsUseCase;
         private readonly GetSharedVaultsUseCase _getSharedVaultsUseCase;
         private readonly ILogger<VaultController> _logger;
-
+        private readonly CreateVaultUseCase _createVaultUseCase;
 
         public VaultController(
             GetUserVaultsUseCase getUserVaultsUseCase,
             GetSharedVaultsUseCase getSharedVaultsUseCase,
-            ILogger<VaultController> logger) // Inject logger
+            CreateVaultUseCase createVaultUseCase,
+            ILogger<VaultController> logger)
         {
             _getUserVaultsUseCase = getUserVaultsUseCase;
             _getSharedVaultsUseCase = getSharedVaultsUseCase;
+            _createVaultUseCase = createVaultUseCase;
             _logger = logger;
         }
 
@@ -72,5 +75,41 @@ namespace noMoreAzerty_back.Controllers
             var sharedVaults = await _getSharedVaultsUseCase.ExecuteAsync(userId);
             return Ok(sharedVaults);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVault([FromBody] CreateVaultRequestDto request)
+        {
+            var oidClaim = User.FindFirst("oid")?.Value
+                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
+                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+
+            if (!Guid.TryParse(oidClaim, out var userId))
+                return BadRequest("Invalid user id");
+
+            var vaultId = await _createVaultUseCase.ExecuteAsync(
+                userId,
+                request.Name,
+                request.DerivedPassword,
+                request.PasswordSalt
+            );
+
+            return CreatedAtAction(nameof(CreateVault), new { id = vaultId }, null);
+        }
     }
+}
+
+public class CreateVaultRequestDto // Todo : placer dans lib partagé /!\
+{
+    public string Name { get; set; } = null!;
+
+    /// <summary>
+    /// Mot de passe dérivé côté client (ex: via PBKDF2/Argon2)
+    /// </summary>
+    public string DerivedPassword { get; set; } = null!;
+
+    /// <summary>
+    /// Sel généré côté client
+    /// </summary>
+    public string PasswordSalt { get; set; } = null!;
 }

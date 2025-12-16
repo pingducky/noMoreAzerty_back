@@ -16,16 +16,13 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<User?> GetByIdAsync(Guid id)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(user);    
-        }
-
-        public async Task SaveChangesAsync()
-        {
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
     }

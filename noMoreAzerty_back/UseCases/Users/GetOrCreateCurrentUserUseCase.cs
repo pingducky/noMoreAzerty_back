@@ -1,4 +1,5 @@
-﻿using noMoreAzerty_back.Interfaces;
+﻿using noMoreAzerty_back.Data;
+using noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Models;
 
 namespace noMoreAzerty_back.UseCases.Users
@@ -6,30 +7,45 @@ namespace noMoreAzerty_back.UseCases.Users
     public class GetOrCreateCurrentUserUseCase
     {
         private readonly IUserRepository _userRepository;
+        private readonly AppDbContext _context;
 
-        public GetOrCreateCurrentUserUseCase(IUserRepository userRepository)
+        public GetOrCreateCurrentUserUseCase(
+            IUserRepository userRepository,
+            AppDbContext context)
         {
             _userRepository = userRepository;
+            _context = context;
         }
 
         public async Task<User> ExecuteAsync(Guid userGuid)
         {
-            var user = await _userRepository.GetByIdAsync(userGuid);
+            await using var transaction =
+                await _context.Database.BeginTransactionAsync();
 
-            if (user == null)
+            try
             {
-                user = new User
+                var user = await _userRepository.GetByIdAsync(userGuid);
+
+                if (user == null)
                 {
-                    Id = userGuid,
-                    CreatedAt = DateTime.UtcNow,
-                    IsActive = true
-                };
+                    user = new User
+                    {
+                        Id = userGuid,
+                        CreatedAt = DateTime.UtcNow,
+                        IsActive = true
+                    };
 
-                await _userRepository.AddAsync(user);
-                await _userRepository.SaveChangesAsync();
+                    await _userRepository.AddAsync(user);
+                }
+
+                await transaction.CommitAsync();
+                return user;
             }
-
-            return user;
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
     }
 }
