@@ -68,5 +68,11 @@ namespace noMoreAzerty_back.Repositories
             return await _context.Vaults.FirstOrDefaultAsync(v => v.Id == vaultId);
         }
 
+        public async Task<bool> IsVaultSharedWithUserAsync(Guid vaultId, Guid userId)
+        {
+            return await _context.Shares
+                .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId);
+        }
+
     }
 }

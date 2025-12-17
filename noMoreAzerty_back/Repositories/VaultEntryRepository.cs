@@ -53,5 +53,11 @@ namespace noMoreAzerty_back.Repositories
             await _context.VaultEntries.AddAsync(entry);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(VaultEntry entry)
+        {
+            _context.VaultEntries.Update(entry);
+            await _context.SaveChangesAsync();
+        }
     }
 }

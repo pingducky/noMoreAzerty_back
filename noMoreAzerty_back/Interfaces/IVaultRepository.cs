@@ -12,8 +12,10 @@ namespace noMoreAzerty_back.Repositories
         Task<IEnumerable<Vault>> GetSharedVaultsAsync(Guid userId);
         Task<bool> VaultExistsAsync(Guid vaultId);
         Task<bool> UserHasAccessToVaultAsync(Guid vaultId, Guid userId);
-        Task AddAsync(Vault vault);
         Task<Vault?> GetByIdAsync(Guid vaultId);
+        Task<bool> IsVaultSharedWithUserAsync(Guid vaultId, Guid userId);
+
+        Task AddAsync(Vault vault);
     }
 }
 

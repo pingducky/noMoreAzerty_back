@@ -33,8 +33,11 @@ namespace noMoreAzerty_back.UseCases.Entries
             var salt = Convert.FromBase64String(vault.PasswordSalt!);
             var computedHash = PasswordHasher.HashPassword(password, salt);
 
+            // Concaténation mot de passe + sel client
+            var passwordToHash = $"{password}{vault.PasswordSalt}";
+
             // 4. Comparaison sécurisée avec le hash du coffre
-            if (!PasswordHasher.SecureEquals(computedHash, vault.HashPassword!))
+            if (!BCrypt.Net.BCrypt.Verify(passwordToHash, vault.HashPassword))
                 throw new UnauthorizedAccessException("Incorrect password.");
 
             // 5. Récupération des entrées chiffrées
