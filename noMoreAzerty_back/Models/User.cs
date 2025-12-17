@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace noMoreAzerty_back.Models
+﻿namespace noMoreAzerty_back.Models
 {
     public class User
     {

@@ -1,9 +1,5 @@
 ﻿using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace noMoreAzerty_back.UseCases.Entries
 {

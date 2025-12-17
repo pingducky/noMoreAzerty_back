@@ -67,14 +67,5 @@ namespace noMoreAzerty_back.Repositories
             _context.VaultEntries.Update(entry);
             await _context.SaveChangesAsync();
         }
-
-        private async Task DeleteAsync(VaultEntry entry)
-        {
-            entry.IsActive = false;
-            entry.UpdatedAt = DateTime.UtcNow;
-
-            _context.VaultEntries.Update(entry);
-            await _context.SaveChangesAsync();
-        }
     }
 }

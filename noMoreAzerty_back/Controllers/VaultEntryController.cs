@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.UseCases.Entries;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -29,19 +26,17 @@ namespace noMoreAzerty_back.Controllers
             _updateVaultEntryUseCase = updateVaultEntryUseCase;
         }
 
-        // ---------------------------------------------
-        // POST: Créer une entrée dans un coffre
-        // ---------------------------------------------
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateVaultEntry(Guid vaultId, [FromBody] CreateVaultEntryRequestDto request)
         {
-            var userIdClaim = User.FindFirst("oid")?.Value
+            String? userIdClaim = User.FindFirst("oid")?.Value
                               ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(userIdClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            var userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            String? userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             try
             {
@@ -78,14 +73,11 @@ namespace noMoreAzerty_back.Controllers
             }
         }
 
-        // ---------------------------------------------
-        // POST: Récupérer les entrées d'un coffre
-        // (On garde POST car on doit envoyer le mot de passe)
-        // ---------------------------------------------
+
         [HttpPost("access")]
         public async Task<IActionResult> GetVaultEntries(Guid vaultId, [FromBody] VaultAccessRequestDto request)
         {
-            var oidClaim = User.FindFirst("oid")?.Value
+            String? oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(oidClaim, out var userId))
@@ -129,19 +121,16 @@ namespace noMoreAzerty_back.Controllers
             }
         }
 
-        // ---------------------------------------------
-        // POST: Suppriession d'une entrée d'un coffre
-        // ---------------------------------------------
         [HttpDelete("{entryId}")]
         public async Task<IActionResult> DeleteEntry(Guid vaultId, Guid entryId)
         {
-            var oidClaim = User.FindFirst("oid")?.Value
+            String? oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            var userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             try
             {
@@ -170,13 +159,13 @@ namespace noMoreAzerty_back.Controllers
             Guid entryId,
             [FromBody] UpdateVaultEntryRequestDto request)
                 {
-                    var oidClaim = User.FindFirst("oid")?.Value
+                    String? oidClaim = User.FindFirst("oid")?.Value
                                     ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
                     if (!Guid.TryParse(oidClaim, out var userId))
                         return BadRequest("Invalid user id");
 
-                    var userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+                    String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
                     try
                     {

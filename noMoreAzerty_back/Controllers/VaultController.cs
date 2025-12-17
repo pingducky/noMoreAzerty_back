@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_back.UseCases.Entries;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -35,13 +31,10 @@ namespace noMoreAzerty_back.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Coffres créés par l’utilisateur
-        /// </summary>
         [HttpGet("my")]
         public async Task<IActionResult> GetMyVaults()
         {
-            var oidClaim = HttpContext.User.FindFirst("oid")?.Value
+            String? oidClaim = HttpContext.User.FindFirst("oid")?.Value
                            ?? HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
                            ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
@@ -54,9 +47,6 @@ namespace noMoreAzerty_back.Controllers
             return Ok(vaults);
         }
 
-        /// <summary>
-        /// Coffres partagés avec l’utilisateur
-        /// </summary>
         [HttpGet("shared")]
         public async Task<IActionResult> GetSharedVaults()
         {
@@ -70,20 +60,17 @@ namespace noMoreAzerty_back.Controllers
             return Ok(sharedVaults);
         }
 
-        /// <summary>
-        /// Crée un nouveau coffre
-        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateVault([FromBody] CreateVaultRequestDto request)
         {
-            var oidClaim = User.FindFirst("oid")?.Value
+            String oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
                            ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
             if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            var vaultId = await _createVaultUseCase.ExecuteAsync(
+            Guid vaultId = await _createVaultUseCase.ExecuteAsync(
                 userId,
                 request.Name,
                 request.DerivedPassword,
@@ -100,14 +87,7 @@ namespace noMoreAzerty_back.Controllers
     {
         public string Name { get; set; } = null!;
 
-        /// <summary>
-        /// Mot de passe dérivé côté client (PBKDF2/Argon2)
-        /// </summary>
         public string DerivedPassword { get; set; } = null!;
-
-        /// <summary>
-        /// Sel généré côté client
-        /// </summary>
         public string PasswordSalt { get; set; } = null!;
     }
 
@@ -140,9 +120,6 @@ namespace noMoreAzerty_back.Controllers
 
     public class VaultAccessRequestDto
     {
-        /// <summary>
-        /// Mot de passe en clair envoyé par le client
-        /// </summary>
         public string Password { get; set; } = null!;
     }
 

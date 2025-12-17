@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 namespace noMoreAzerty_back.Services
 {
     public class VaultSessionManager
     {
+        // Singleton thread-safe
         private static readonly Lazy<VaultSessionManager> _instance =
             new Lazy<VaultSessionManager>(() => new VaultSessionManager());
 
