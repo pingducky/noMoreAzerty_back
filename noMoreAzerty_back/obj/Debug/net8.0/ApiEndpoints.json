@@ -17,27 +17,6 @@
   },
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
-    "Method": "GetVaultEntries",
-    "RelativePath": "api/Vault/{vaultId}/entries",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "vaultId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.VaultAccessRequestDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
     "Method": "GetMyVaults",
     "RelativePath": "api/Vault/my",
     "HttpMethod": "GET",
@@ -54,6 +33,48 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "GetVaultEntries",
+    "RelativePath": "api/vaults/{vaultId}/entries/access",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BVaultAccessRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "CreateVaultEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BCreateVaultEntryRequestDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

@@ -92,56 +92,6 @@ namespace noMoreAzerty_back.Controllers
 
             return CreatedAtAction(nameof(CreateVault), new { id = vaultId }, null);
         }
-
-        [HttpPost("{vaultId}/entries")]
-        public async Task<IActionResult> GetVaultEntries(Guid vaultId, [FromBody] VaultAccessRequestDto request)
-        {
-            // Récupération du userId depuis le token
-            var oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
-
-            try
-            {
-                // Tout est géré par le UseCase
-                var entries = await _getEntriesByVaultUseCase.ExecuteAsync(vaultId, userId, request.Password);
-
-                var result = entries.Select(e => new VaultEntryDto
-                {
-                    Id = e.Id,
-                    CipherTitle = e.CipherTitle,
-                    TitleIV = e.TitleIV,
-                    TitleTag = e.TitleTag,
-                    CipherUsername = e.CipherUsername,
-                    UsernameIV = e.UsernameIV,
-                    UsernameTag = e.UsernameTag,
-                    CipherPassword = e.CipherPassword,
-                    PasswordIV = e.PasswordIV,
-                    PasswordTag = e.PasswordTag,
-                    CipherUrl = e.CipherUrl,
-                    UrlIV = e.UrlIV,
-                    UrlTag = e.UrlTag,
-                    CipherCommentary = e.CipherCommentary,
-                    ComentaryIV = e.ComentaryIV,
-                    ComentaryTag = e.ComentaryTag,
-                    CreatedAt = e.CreatedAt,
-                    UpdatedAt = e.UpdatedAt
-                }).ToList();
-
-                return Ok(result);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound();
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Forbid();
-            }
-        }
-
     }
 
     #region DTO temporaires

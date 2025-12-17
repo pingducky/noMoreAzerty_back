@@ -14,8 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -48,7 +47,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// System.AggregateException : 'Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase Lifetime: Scoped ImplementationType: noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase': Unable to resolve service for type 'noMoreAzerty_back.Repositories.IVaultEntryRepository' while attempting to activate 'noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase'.)'
 var app = builder.Build();
 
 
@@ -64,7 +62,6 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-// ✅ Middleware de création/utilisateur automatique
 app.UseMiddleware<EnsureUserProvisionedMiddleware>();
 
 app.MapControllers();

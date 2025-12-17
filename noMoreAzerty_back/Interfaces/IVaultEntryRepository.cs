@@ -5,5 +5,6 @@ namespace noMoreAzerty_back.Repositories
     public interface IVaultEntryRepository
     {
         Task<List<VaultEntry>> GetEntriesByVaultAsync(Guid vaultId);
+        Task AddAsync(VaultEntry entry);
     }
 }

@@ -60,10 +60,52 @@
         }
       }
     },
-    "/api/Vault/{vaultId}/entries": {
+    "/api/vaults/{vaultId}/entries/create": {
       "post": {
         "tags": [
-          "Vault"
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/entries/access": {
+      "post": {
+        "tags": [
+          "VaultEntry"
         ],
         "parameters": [
           {
@@ -105,6 +147,72 @@
   },
   "components": {
     "schemas": {
+      "CreateVaultEntryRequestDto": {
+        "type": "object",
+        "properties": {
+          "cipherTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherCommentary": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryTag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateVaultRequestDto": {
         "type": "object",
         "properties": {
