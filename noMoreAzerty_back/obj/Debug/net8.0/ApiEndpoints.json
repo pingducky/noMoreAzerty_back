@@ -9,7 +9,28 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "CreateVaultRequestDto",
+        "Type": "noMoreAzerty_back.Controllers.CreateVaultRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetVaultEntries",
+    "RelativePath": "api/Vault/{vaultId}/entries",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.VaultAccessRequestDto",
         "IsRequired": true
       }
     ],

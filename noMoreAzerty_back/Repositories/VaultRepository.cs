@@ -41,5 +41,32 @@ namespace noMoreAzerty_back.Repositories
             _context.Vaults.Add(vault);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> VaultExistsAsync(Guid vaultId)
+        {
+            return await _context.Vaults.AnyAsync(v => v.Id == vaultId);
+        }
+
+        public async Task<bool> UserHasAccessToVaultAsync(Guid vaultId, Guid userId)
+        {
+            // Vérifie si l'utilisateur est propriétaire
+            bool isOwner = await _context.Vaults
+                .AnyAsync(v => v.Id == vaultId && v.UserId == userId);
+
+            if (isOwner)
+                return true;
+
+            // Vérifie si l'utilisateur a un partage
+            bool isShared = await _context.Shares
+                .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId); 
+
+            return isShared;
+        }
+
+        public async Task<Vault?> GetByIdAsync(Guid vaultId)
+        {
+            return await _context.Vaults.FirstOrDefaultAsync(v => v.Id == vaultId);
+        }
+
     }
 }

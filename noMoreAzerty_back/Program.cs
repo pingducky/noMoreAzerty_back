@@ -5,6 +5,7 @@ using noMoreAzerty_back.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using noMoreAzerty_back.UseCases.Vaults;
+using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Users;
 using noMoreAzerty_back.Middlewares; 
 
@@ -25,11 +26,14 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVaultRepository, VaultRepository>();
+builder.Services.AddScoped<IVaultEntryRepository, VaultEntryRepository>();
 
 builder.Services.AddScoped<GetOrCreateCurrentUserUseCase>();
 builder.Services.AddScoped<GetAllVaultsUseCase>();
 builder.Services.AddScoped<GetUserVaultsUseCase>();
 builder.Services.AddScoped<GetSharedVaultsUseCase>();
+builder.Services.AddScoped<CreateVaultUseCase>();
+builder.Services.AddScoped<GetVaultEntriesUseCase>();
 
 
 builder.Services.AddControllers();
@@ -44,6 +48,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+// System.AggregateException : 'Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase Lifetime: Scoped ImplementationType: noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase': Unable to resolve service for type 'noMoreAzerty_back.Repositories.IVaultEntryRepository' while attempting to activate 'noMoreAzerty_back.UseCases.Entries.GetEntriesByVaultUseCase'.)'
 var app = builder.Build();
 
 
