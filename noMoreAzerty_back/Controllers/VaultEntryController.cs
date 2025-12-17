@@ -14,13 +14,17 @@ namespace noMoreAzerty_back.Controllers
     {
         private readonly CreateVaultEntryUseCase _createVaultEntryUseCase;
         private readonly GetVaultEntriesUseCase _getVaultEntriesUseCase;
+        private readonly DeleteVaultEntryUseCase _deleteVaultEntryUseCase;
+
 
         public VaultEntryController(
             CreateVaultEntryUseCase createVaultEntryUseCase,
-            GetVaultEntriesUseCase getVaultEntriesUseCase)
+            GetVaultEntriesUseCase getVaultEntriesUseCase,
+            DeleteVaultEntryUseCase deleteVaultEntryUseCase)
         {
             _createVaultEntryUseCase = createVaultEntryUseCase;
             _getVaultEntriesUseCase = getVaultEntriesUseCase;
+            _deleteVaultEntryUseCase = deleteVaultEntryUseCase;
         }
 
         // ---------------------------------------------
@@ -122,6 +126,42 @@ namespace noMoreAzerty_back.Controllers
                 return Forbid();
             }
         }
+
+        // ---------------------------------------------
+        // POST: Suppriession d'une entrée d'un coffre
+        // ---------------------------------------------
+        [HttpDelete("{entryId}")]
+        public async Task<IActionResult> DeleteEntry(Guid vaultId, Guid entryId)
+        {
+            var oidClaim = User.FindFirst("oid")?.Value
+                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (!Guid.TryParse(oidClaim, out var userId))
+                return BadRequest("Invalid user id");
+
+            var userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+            try
+            {
+                await _deleteVaultEntryUseCase.ExecuteAsync(
+                    userId,
+                    vaultId,
+                    entryId,
+                    userIp
+                );
+
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Forbid(e.Message);
+            }
+        }
+
 
         // ---------------------------------------------
         // DTOs

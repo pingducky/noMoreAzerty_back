@@ -48,6 +48,14 @@ namespace noMoreAzerty_back.Repositories
                 .ToListAsync();
         }
 
+        public async Task<VaultEntry?> GetByIdAsync(Guid entryId)
+        {
+            return await _context.VaultEntries
+                .FirstOrDefaultAsync(e =>
+                    e.Id == entryId &&
+                    (e.IsActive ?? true));
+        }
+
         public async Task AddAsync(VaultEntry entry)
         {
             await _context.VaultEntries.AddAsync(entry);
@@ -56,6 +64,15 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task UpdateAsync(VaultEntry entry)
         {
+            _context.VaultEntries.Update(entry);
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task DeleteAsync(VaultEntry entry)
+        {
+            entry.IsActive = false;
+            entry.UpdatedAt = DateTime.UtcNow;
+
             _context.VaultEntries.Update(entry);
             await _context.SaveChangesAsync();
         }

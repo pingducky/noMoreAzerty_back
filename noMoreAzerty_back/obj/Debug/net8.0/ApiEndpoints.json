@@ -37,6 +37,27 @@
   },
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "DeleteEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/{entryId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "entryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
     "Method": "GetVaultEntries",
     "RelativePath": "api/vaults/{vaultId}/entries/access",
     "HttpMethod": "POST",
