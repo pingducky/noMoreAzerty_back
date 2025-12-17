@@ -58,6 +58,32 @@
   },
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "UpdateEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/{entryId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "entryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BUpdateVaultEntryRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
     "Method": "GetVaultEntries",
     "RelativePath": "api/vaults/{vaultId}/entries/access",
     "HttpMethod": "POST",

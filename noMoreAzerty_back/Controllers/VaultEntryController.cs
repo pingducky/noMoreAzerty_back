@@ -15,16 +15,18 @@ namespace noMoreAzerty_back.Controllers
         private readonly CreateVaultEntryUseCase _createVaultEntryUseCase;
         private readonly GetVaultEntriesUseCase _getVaultEntriesUseCase;
         private readonly DeleteVaultEntryUseCase _deleteVaultEntryUseCase;
-
+        private readonly UpdateVaultEntryUseCase _updateVaultEntryUseCase;
 
         public VaultEntryController(
             CreateVaultEntryUseCase createVaultEntryUseCase,
             GetVaultEntriesUseCase getVaultEntriesUseCase,
-            DeleteVaultEntryUseCase deleteVaultEntryUseCase)
+            DeleteVaultEntryUseCase deleteVaultEntryUseCase,
+            UpdateVaultEntryUseCase updateVaultEntryUseCase)
         {
             _createVaultEntryUseCase = createVaultEntryUseCase;
             _getVaultEntriesUseCase = getVaultEntriesUseCase;
             _deleteVaultEntryUseCase = deleteVaultEntryUseCase;
+            _updateVaultEntryUseCase = updateVaultEntryUseCase;
         }
 
         // ---------------------------------------------
@@ -162,6 +164,57 @@ namespace noMoreAzerty_back.Controllers
             }
         }
 
+        [HttpPut("{entryId}")]
+        public async Task<IActionResult> UpdateEntry(
+            Guid vaultId,
+            Guid entryId,
+            [FromBody] UpdateVaultEntryRequestDto request)
+                {
+                    var oidClaim = User.FindFirst("oid")?.Value
+                                    ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+                    if (!Guid.TryParse(oidClaim, out var userId))
+                        return BadRequest("Invalid user id");
+
+                    var userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+                    try
+                    {
+                        await _updateVaultEntryUseCase.ExecuteAsync(
+                            userId,
+                            vaultId,
+                            entryId,
+                            userIp,
+                            request.CipherTitle,
+                            request.TitleIV,
+                            request.TitleTag,
+                            request.CipherUsername,
+                            request.UsernameIV,
+                            request.UsernameTag,
+                            request.CipherPassword,
+                            request.PasswordIV,
+                            request.PasswordTag,
+                            request.CipherUrl,
+                            request.UrlIV,
+                            request.UrlTag,
+                            request.CipherCommentary,
+                            request.ComentaryIV,
+                            request.ComentaryTag
+                        );
+
+                        return NoContent();
+                    }
+                    catch (KeyNotFoundException e)
+                    {
+                        return NotFound(e.Message);
+                    }
+                    catch (UnauthorizedAccessException e)
+                    {
+                        return Forbid(e.Message);
+                    }
+                }
+
+
 
         // ---------------------------------------------
         // DTOs
@@ -184,6 +237,30 @@ namespace noMoreAzerty_back.Controllers
             public string? ComentaryIV { get; set; }
             public string? ComentaryTag { get; set; }
         }
+
+        public class UpdateVaultEntryRequestDto
+        {
+            public string? CipherTitle { get; set; }
+            public string? TitleIV { get; set; }
+            public string? TitleTag { get; set; }
+
+            public string? CipherUsername { get; set; }
+            public string? UsernameIV { get; set; }
+            public string? UsernameTag { get; set; }
+
+            public string? CipherPassword { get; set; }
+            public string? PasswordIV { get; set; }
+            public string? PasswordTag { get; set; }
+
+            public string? CipherUrl { get; set; }
+            public string? UrlIV { get; set; }
+            public string? UrlTag { get; set; }
+
+            public string? CipherCommentary { get; set; }
+            public string? ComentaryIV { get; set; }
+            public string? ComentaryTag { get; set; }
+        }
+
 
         public class VaultEntryDto
         {

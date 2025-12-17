@@ -174,6 +174,55 @@
             "description": "OK"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "entryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
@@ -257,6 +306,72 @@
             "nullable": true
           },
           "passwordSalt": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVaultEntryRequestDto": {
+        "type": "object",
+        "properties": {
+          "cipherTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherCommentary": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryTag": {
             "type": "string",
             "nullable": true
           }

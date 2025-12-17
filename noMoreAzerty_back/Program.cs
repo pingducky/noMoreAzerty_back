@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Web;
 using noMoreAzerty_back.Data;
 using noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Middlewares; 
 using noMoreAzerty_back.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Users;
-using noMoreAzerty_back.Middlewares; 
+using noMoreAzerty_back.UseCases.Vaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,11 +29,17 @@ builder.Services.AddScoped<IVaultRepository, VaultRepository>();
 builder.Services.AddScoped<IVaultEntryRepository, VaultEntryRepository>();
 
 builder.Services.AddScoped<GetOrCreateCurrentUserUseCase>();
-builder.Services.AddScoped<GetAllVaultsUseCase>();
-builder.Services.AddScoped<GetUserVaultsUseCase>();
-builder.Services.AddScoped<GetSharedVaultsUseCase>();
+
 builder.Services.AddScoped<CreateVaultUseCase>();
+builder.Services.AddScoped<DeleteVaultEntryUseCase>();
 builder.Services.AddScoped<GetVaultEntriesUseCase>();
+builder.Services.AddScoped<UpdateVaultEntryUseCase>();
+
+builder.Services.AddScoped<CreateVaultEntryUseCase>();
+builder.Services.AddScoped<GetAllVaultsUseCase>();
+builder.Services.AddScoped<GetSharedVaultsUseCase>();
+builder.Services.AddScoped<GetUserVaultsUseCase>();
+
 
 
 builder.Services.AddControllers();
