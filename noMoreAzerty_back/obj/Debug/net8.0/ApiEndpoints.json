@@ -1,0 +1,127 @@
+[
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "CreateVault",
+    "RelativePath": "api/Vault",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_dto.DTOs.Request.CreateVaultRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetMyVaults",
+    "RelativePath": "api/Vault/my",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetSharedVaults",
+    "RelativePath": "api/Vault/shared",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "DeleteEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/{entryId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "entryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "UpdateEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/{entryId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "entryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_dto.DTOs.Request.UpdateVaultEntryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "GetVaultEntries",
+    "RelativePath": "api/vaults/{vaultId}/entries/access",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_dto.DTOs.Request.VaultAccessRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
+    "Method": "CreateVaultEntry",
+    "RelativePath": "api/vaults/{vaultId}/entries/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_dto.DTOs.Request.CreateVaultEntryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

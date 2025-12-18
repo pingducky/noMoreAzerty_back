@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.Models;
 using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_dto.DTOs.Request;
-using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -67,7 +66,6 @@ namespace noMoreAzerty_back.Controllers
                     request.ComentaryTag
                 );
 
-                // Construction de la réponse complète
                 var vaultEntry = new VaultEntry
                 {
                     Id = entryId,

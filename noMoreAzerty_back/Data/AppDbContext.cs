@@ -14,7 +14,6 @@ namespace noMoreAzerty_back.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Relations (inchangées)
             modelBuilder.Entity<Share>().HasKey(s => new { s.UserId, s.VaultId });
             modelBuilder.Entity<Vault>()
                 .HasOne(v => v.User)

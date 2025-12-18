@@ -22,16 +22,16 @@ namespace noMoreAzerty_back.UseCases.Entries
             Guid entryId,
             string userIp)
         {
-            // 1️⃣ Vérifier que le coffre existe
+            // Vérifier que le coffre existe
             var vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
                 throw new KeyNotFoundException("Vault not found");
 
-            // 2️⃣ Vérifier que l'utilisateur est owner (pas partagé)
+            // Vérifier que l'utilisateur est owner (pas partagé)
             if (vault.UserId != userId)
                 throw new UnauthorizedAccessException("User is not owner of the vault");
 
-            // 3️⃣ Vérifier la session RAM
+            // Vérifier la session RAM
             var sessionManager = VaultSessionManager.Instance;
             if (!sessionManager.HasRecentSession(
                     userId,
@@ -42,16 +42,16 @@ namespace noMoreAzerty_back.UseCases.Entries
                 throw new UnauthorizedAccessException("No valid vault session");
             }
 
-            // 4️⃣ Vérifier que l'entrée existe
+            // 4Vérifier que l'entrée existe
             var entry = await _vaultEntryRepository.GetByIdAsync(entryId);
             if (entry == null)
                 throw new KeyNotFoundException("Vault entry not found");
 
-            // 5️⃣ Vérifier que l'entrée appartient bien au coffre
+            // Vérifier que l'entrée appartient bien au coffre
             if (entry.VaultId != vaultId)
                 throw new UnauthorizedAccessException("Entry does not belong to this vault");
 
-            // 6️⃣ Soft delete
+            // Soft delete
             entry.IsActive = false;
             entry.UpdatedAt = DateTime.UtcNow;
 

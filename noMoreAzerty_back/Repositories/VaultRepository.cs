@@ -10,7 +10,7 @@ namespace noMoreAzerty_back.Repositories
 
         public VaultRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context; // Todo : rendre le cycle de vie du contexte plus court
         }
 
         public async Task<IEnumerable<Vault>> GetAllVaultsAsync()
@@ -28,11 +28,9 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<IEnumerable<Vault>> GetSharedVaultsAsync(Guid userId)
         {
-            return await _context.Shares
-                .Include(s => s.Vault)
-                    .ThenInclude(v => v.User)
-                .Where(s => s.UserId == userId)
-                .Select(s => s.Vault!)
+            return await _context.Vaults
+                .Include(v => v.User)
+                .Where(v => v.Shares.Any(s => s.UserId == userId))
                 .ToListAsync();
         }
 

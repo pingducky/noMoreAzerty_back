@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using noMoreAzerty_back.UseCases.Users;
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using noMoreAzerty_back.UseCases.Users;
 
 namespace noMoreAzerty_back.Middlewares
 {

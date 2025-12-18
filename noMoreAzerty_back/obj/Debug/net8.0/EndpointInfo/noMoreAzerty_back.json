@@ -1,0 +1,393 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "noMoreAzerty_back",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Vault/my": {
+      "get": {
+        "tags": [
+          "Vault"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault/shared": {
+      "get": {
+        "tags": [
+          "Vault"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault": {
+      "post": {
+        "tags": [
+          "Vault"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/entries/create": {
+      "post": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/entries/access": {
+      "post": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaultAccessRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaultAccessRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaultAccessRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/entries/{entryId}": {
+      "delete": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "entryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "entryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateVaultEntryRequest": {
+        "type": "object",
+        "properties": {
+          "cipherTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherCommentary": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryTag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateVaultRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "derivedPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordSalt": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVaultEntryRequest": {
+        "type": "object",
+        "properties": {
+          "cipherTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUsername": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "usernameTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "urlTag": {
+            "type": "string",
+            "nullable": true
+          },
+          "cipherCommentary": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryIV": {
+            "type": "string",
+            "nullable": true
+          },
+          "comentaryTag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VaultAccessRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

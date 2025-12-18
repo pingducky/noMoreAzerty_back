@@ -11,7 +11,7 @@ namespace noMoreAzerty_back.Repositories
 
         public UserRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context; // Todo : rendre le cycle de vie du contexte plus court
         }
 
         public async Task<User?> GetByIdAsync(Guid id)

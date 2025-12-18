@@ -6,11 +6,11 @@ namespace noMoreAzerty_back.Repositories
 {
     public class VaultEntryRepository : IVaultEntryRepository
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context; 
 
         public VaultEntryRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context; // Todo : rendre le cycle de vie du contexte plus court
         }
 
         public async Task<List<VaultEntry>> GetEntriesByVaultAsync(Guid vaultId)

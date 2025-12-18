@@ -11,7 +11,6 @@ namespace noMoreAzerty_back.Repositories
         Task<bool> UserHasAccessToVaultAsync(Guid vaultId, Guid userId);
         Task<Vault?> GetByIdAsync(Guid vaultId);
         Task<bool> IsVaultSharedWithUserAsync(Guid vaultId, Guid userId);
-
         Task AddAsync(Vault vault);
     }
 }

@@ -25,7 +25,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
             });
         }
 
-        public class UserVaultReadResponse
+        public class UserVaultReadResponse // Todo: utiliser la response de la librairie partagé
         {
             public Guid Id { get; set; }
             public string? Name { get; set; } = null!;
