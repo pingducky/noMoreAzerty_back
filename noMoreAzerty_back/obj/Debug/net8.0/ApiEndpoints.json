@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.CreateVaultRequestDto",
+        "Type": "noMoreAzerty_dto.DTOs.Request.CreateVaultRequest",
         "IsRequired": true
       }
     ],
@@ -76,7 +76,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BUpdateVaultEntryRequestDto",
+        "Type": "noMoreAzerty_dto.DTOs.Request.UpdateVaultEntryRequest",
         "IsRequired": true
       }
     ],
@@ -97,7 +97,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BVaultAccessRequestDto",
+        "Type": "noMoreAzerty_dto.DTOs.Request.VaultAccessRequest",
         "IsRequired": true
       }
     ],
@@ -118,7 +118,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.VaultEntryController\u002BCreateVaultEntryRequestDto",
+        "Type": "noMoreAzerty_dto.DTOs.Request.CreateVaultEntryRequest",
         "IsRequired": true
       }
     ],

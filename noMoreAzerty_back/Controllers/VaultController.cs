@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using noMoreAzerty_dto.DTOs.Request;
+using noMoreAzerty_dto.DTOs.Response;
 using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_back.UseCases.Entries;
 using System.Security.Claims;
@@ -31,6 +33,9 @@ namespace noMoreAzerty_back.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Récupération des coffres de l'utilisateur
+        /// </summary>
         [HttpGet("my")]
         public async Task<IActionResult> GetMyVaults()
         {
@@ -44,9 +49,16 @@ namespace noMoreAzerty_back.Controllers
             _logger.LogInformation("GetMyVaults called with userId: {UserId}", userId);
 
             var vaults = await _getUserVaultsUseCase.ExecuteAsync(userId);
+
+            var result = vaults.Select(v => new GetVaultResponse());
+
             return Ok(vaults);
         }
 
+
+        /// <summary>
+        /// Récupération des coffres partagés de l'utilisateur
+        /// </summary>
         [HttpGet("shared")]
         public async Task<IActionResult> GetSharedVaults()
         {
@@ -60,68 +72,36 @@ namespace noMoreAzerty_back.Controllers
             return Ok(sharedVaults);
         }
 
+        /// <summary>
+        /// Création d'un coffre
+        /// </summary>
         [HttpPost]
-        public async Task<IActionResult> CreateVault([FromBody] CreateVaultRequestDto request)
+        public async Task<IActionResult> CreateVault([FromBody] CreateVaultRequest request)
         {
-            String oidClaim = User.FindFirst("oid")?.Value
+            string oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
                            ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
             if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            Guid vaultId = await _createVaultUseCase.ExecuteAsync(
+            // Création du coffre
+            var vaultId = await _createVaultUseCase.ExecuteAsync(
                 userId,
                 request.Name,
                 request.DerivedPassword,
                 request.PasswordSalt
             );
 
-            return CreatedAtAction(nameof(CreateVault), new { id = vaultId }, null);
+            var vaultResponse = new
+            {
+                Id = vaultId,
+                Name = request.Name,
+                PasswordSalt = request.PasswordSalt,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            return CreatedAtAction(nameof(CreateVault), new { id = vaultId }, vaultResponse);
         }
     }
-
-    #region DTO temporaires
-
-    public class CreateVaultRequestDto
-    {
-        public string Name { get; set; } = null!;
-
-        public string DerivedPassword { get; set; } = null!;
-        public string PasswordSalt { get; set; } = null!;
-    }
-
-    public class VaultEntryDto
-    {
-        public Guid Id { get; set; }
-        public string? CipherTitle { get; set; }
-        public string? TitleIV { get; set; }
-        public string? TitleTag { get; set; }
-
-        public string? CipherUsername { get; set; }
-        public string? UsernameIV { get; set; }
-        public string? UsernameTag { get; set; }
-
-        public string? CipherPassword { get; set; }
-        public string? PasswordIV { get; set; }
-        public string? PasswordTag { get; set; }
-
-        public string? CipherUrl { get; set; }
-        public string? UrlIV { get; set; }
-        public string? UrlTag { get; set; }
-
-        public string? CipherCommentary { get; set; }
-        public string? ComentaryIV { get; set; }
-        public string? ComentaryTag { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
-
-    public class VaultAccessRequestDto
-    {
-        public string Password { get; set; } = null!;
-    }
-
-    #endregion
 }

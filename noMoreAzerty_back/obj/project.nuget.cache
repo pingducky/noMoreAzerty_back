@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AZWr+9KUzHI=",
+  "dgSpecHash": "4y/4ZTa81Ao=",
   "success": true,
   "projectFilePath": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
   "expectedPackageFiles": [
@@ -76,7 +76,7 @@
     "C:\\Users\\hugo1\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\hugo1\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\hugo1\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
-    "C:\\Users\\hugo1\\.nuget\\packages\\nomoreazerty.shared\\1.0.0\\nomoreazerty.shared.1.0.0.nupkg.sha512",
+    "C:\\Users\\hugo1\\.nuget\\packages\\nomoreazerty.shared\\1.0.6\\nomoreazerty.shared.1.0.6.nupkg.sha512",
     "C:\\Users\\hugo1\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\hugo1\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\hugo1\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

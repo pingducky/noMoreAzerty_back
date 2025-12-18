@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using noMoreAzerty_back.Models;
 using noMoreAzerty_back.UseCases.Entries;
+using noMoreAzerty_dto.DTOs.Request;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -27,16 +30,19 @@ namespace noMoreAzerty_back.Controllers
         }
 
 
+        /// <summary>
+        /// Création d'une nouvelle entrée de coffre
+        /// </summary>
         [HttpPost("create")]
-        public async Task<IActionResult> CreateVaultEntry(Guid vaultId, [FromBody] CreateVaultEntryRequestDto request)
+        public async Task<IActionResult> CreateVaultEntry(Guid vaultId, [FromBody] CreateVaultEntryRequest request)
         {
-            String? userIdClaim = User.FindFirst("oid")?.Value
-                              ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            string? userIdClaim = User.FindFirst("oid")?.Value
+                               ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(userIdClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            String? userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string? userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             try
             {
@@ -61,7 +67,30 @@ namespace noMoreAzerty_back.Controllers
                     request.ComentaryTag
                 );
 
-                return CreatedAtAction(nameof(CreateVaultEntry), new { id = entryId }, null);
+                // Construction de la réponse complète
+                var vaultEntry = new VaultEntry
+                {
+                    Id = entryId,
+                    CipherTitle = request.CipherTitle,
+                    TitleIV = request.TitleIV,
+                    TitleTag = request.TitleTag,
+                    CipherUsername = request.CipherUsername,
+                    UsernameIV = request.UsernameIV,
+                    UsernameTag = request.UsernameTag,
+                    CipherPassword = request.CipherPassword,
+                    PasswordIV = request.PasswordIV,
+                    PasswordTag = request.PasswordTag,
+                    CipherUrl = request.CipherUrl,
+                    UrlIV = request.UrlIV,
+                    UrlTag = request.UrlTag,
+                    CipherCommentary = request.CipherCommentary,
+                    ComentaryIV = request.ComentaryIV,
+                    ComentaryTag = request.ComentaryTag,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = null
+                };
+
+                return CreatedAtAction(nameof(CreateVaultEntry), new { id = entryId }, vaultEntry);
             }
             catch (KeyNotFoundException)
             {
@@ -74,8 +103,11 @@ namespace noMoreAzerty_back.Controllers
         }
 
 
+        /// <summary>
+        /// Récupération des entrés d'un coffre (encore chiffré)
+        /// </summary>
         [HttpPost("access")]
-        public async Task<IActionResult> GetVaultEntries(Guid vaultId, [FromBody] VaultAccessRequestDto request)
+        public async Task<IActionResult> GetVaultEntries(Guid vaultId, [FromBody] VaultAccessRequest request)
         {
             String? oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -87,27 +119,7 @@ namespace noMoreAzerty_back.Controllers
             {
                 var entries = await _getVaultEntriesUseCase.ExecuteAsync(vaultId, userId, request.Password);
 
-                var result = entries.Select(e => new VaultEntryDto
-                {
-                    Id = e.Id,
-                    CipherTitle = e.CipherTitle,
-                    TitleIV = e.TitleIV,
-                    TitleTag = e.TitleTag,
-                    CipherUsername = e.CipherUsername,
-                    UsernameIV = e.UsernameIV,
-                    UsernameTag = e.UsernameTag,
-                    CipherPassword = e.CipherPassword,
-                    PasswordIV = e.PasswordIV,
-                    PasswordTag = e.PasswordTag,
-                    CipherUrl = e.CipherUrl,
-                    UrlIV = e.UrlIV,
-                    UrlTag = e.UrlTag,
-                    CipherCommentary = e.CipherCommentary,
-                    ComentaryIV = e.ComentaryIV,
-                    ComentaryTag = e.ComentaryTag,
-                    CreatedAt = e.CreatedAt,
-                    UpdatedAt = e.UpdatedAt
-                }).ToList();
+                var result = entries.Select(e => new GetVaultEntriesResponse()).ToList();
 
                 return Ok(result);
             }
@@ -121,6 +133,9 @@ namespace noMoreAzerty_back.Controllers
             }
         }
 
+        /// <summary>
+        /// Suppression d'une entré d'un coffre
+        /// </summary>
         [HttpDelete("{entryId}")]
         public async Task<IActionResult> DeleteEntry(Guid vaultId, Guid entryId)
         {
@@ -153,11 +168,15 @@ namespace noMoreAzerty_back.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Mise à jour d'une entré d'un coffre
+        /// </summary>
         [HttpPut("{entryId}")]
         public async Task<IActionResult> UpdateEntry(
             Guid vaultId,
             Guid entryId,
-            [FromBody] UpdateVaultEntryRequestDto request)
+            [FromBody] UpdateVaultEntryRequest request)
                 {
                     String? oidClaim = User.FindFirst("oid")?.Value
                                     ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -202,80 +221,5 @@ namespace noMoreAzerty_back.Controllers
                         return Forbid(e.Message);
                     }
                 }
-
-
-
-        // ---------------------------------------------
-        // DTOs
-        // ---------------------------------------------
-        public class CreateVaultEntryRequestDto
-        {
-            public string? CipherTitle { get; set; }
-            public string? TitleIV { get; set; }
-            public string? TitleTag { get; set; }
-            public string? CipherUsername { get; set; }
-            public string? UsernameIV { get; set; }
-            public string? UsernameTag { get; set; }
-            public string? CipherPassword { get; set; }
-            public string? PasswordIV { get; set; }
-            public string? PasswordTag { get; set; }
-            public string? CipherUrl { get; set; }
-            public string? UrlIV { get; set; }
-            public string? UrlTag { get; set; }
-            public string? CipherCommentary { get; set; }
-            public string? ComentaryIV { get; set; }
-            public string? ComentaryTag { get; set; }
-        }
-
-        public class UpdateVaultEntryRequestDto
-        {
-            public string? CipherTitle { get; set; }
-            public string? TitleIV { get; set; }
-            public string? TitleTag { get; set; }
-
-            public string? CipherUsername { get; set; }
-            public string? UsernameIV { get; set; }
-            public string? UsernameTag { get; set; }
-
-            public string? CipherPassword { get; set; }
-            public string? PasswordIV { get; set; }
-            public string? PasswordTag { get; set; }
-
-            public string? CipherUrl { get; set; }
-            public string? UrlIV { get; set; }
-            public string? UrlTag { get; set; }
-
-            public string? CipherCommentary { get; set; }
-            public string? ComentaryIV { get; set; }
-            public string? ComentaryTag { get; set; }
-        }
-
-
-        public class VaultEntryDto
-        {
-            public Guid Id { get; set; }
-            public string? CipherTitle { get; set; }
-            public string? TitleIV { get; set; }
-            public string? TitleTag { get; set; }
-            public string? CipherUsername { get; set; }
-            public string? UsernameIV { get; set; }
-            public string? UsernameTag { get; set; }
-            public string? CipherPassword { get; set; }
-            public string? PasswordIV { get; set; }
-            public string? PasswordTag { get; set; }
-            public string? CipherUrl { get; set; }
-            public string? UrlIV { get; set; }
-            public string? UrlTag { get; set; }
-            public string? CipherCommentary { get; set; }
-            public string? ComentaryIV { get; set; }
-            public string? ComentaryTag { get; set; }
-            public DateTime? CreatedAt { get; set; }
-            public DateTime? UpdatedAt { get; set; }
-        }
-
-        public class VaultAccessRequestDto
-        {
-            public string Password { get; set; } = null!;
-        }
     }
 }

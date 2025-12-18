@@ -1,5 +1,4 @@
-﻿using noMoreAzerty_back.Models;
-using noMoreAzerty_back.Repositories;
+﻿using noMoreAzerty_back.Repositories;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {
@@ -12,23 +11,27 @@ namespace noMoreAzerty_back.UseCases.Vaults
             _vaultRepository = vaultRepository;
         }
 
-        public async Task<IEnumerable<object>> ExecuteAsync(Guid userId)
+        public async Task<IEnumerable<UserVaultReadResponse>> ExecuteAsync(Guid userId)
         {
             var vaults = await _vaultRepository.GetVaultsByUserAsync(userId);
 
-            return vaults.Select(v => new
+            return vaults.Select(v => new UserVaultReadResponse
             {
-                // Informations du coffre
-                v.Id,
-                v.Name,
-                v.CreatedAt,
-
-                // Informations de l'utilisateur
-                User = new
-                {
-                    v.UserId,
-                }
+                Id = v.Id,
+                Name = v.Name,
+                CreatedAt = v.CreatedAt,
+                IsShared = false,
+                PasswordSalt = v.PasswordSalt
             });
+        }
+
+        public class UserVaultReadResponse
+        {
+            public Guid Id { get; set; }
+            public string? Name { get; set; } = null!;
+            public DateTime CreatedAt { get; set; }
+            public bool IsShared { get; set; }
+            public string? PasswordSalt { get; set; } = null!;
         }
     }
 }

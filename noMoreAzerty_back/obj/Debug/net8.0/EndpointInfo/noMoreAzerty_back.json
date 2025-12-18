@@ -38,17 +38,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultRequestDto"
+                "$ref": "#/components/schemas/CreateVaultRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultRequestDto"
+                "$ref": "#/components/schemas/CreateVaultRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultRequestDto"
+                "$ref": "#/components/schemas/CreateVaultRequest"
               }
             }
           }
@@ -80,17 +80,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/CreateVaultEntryRequest"
               }
             }
           }
@@ -122,17 +122,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequestDto"
+                "$ref": "#/components/schemas/VaultAccessRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequestDto"
+                "$ref": "#/components/schemas/VaultAccessRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequestDto"
+                "$ref": "#/components/schemas/VaultAccessRequest"
               }
             }
           }
@@ -203,17 +203,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultEntryRequestDto"
+                "$ref": "#/components/schemas/UpdateVaultEntryRequest"
               }
             }
           }
@@ -228,7 +228,7 @@
   },
   "components": {
     "schemas": {
-      "CreateVaultEntryRequestDto": {
+      "CreateVaultEntryRequest": {
         "type": "object",
         "properties": {
           "cipherTitle": {
@@ -294,7 +294,7 @@
         },
         "additionalProperties": false
       },
-      "CreateVaultRequestDto": {
+      "CreateVaultRequest": {
         "type": "object",
         "properties": {
           "name": {
@@ -312,7 +312,7 @@
         },
         "additionalProperties": false
       },
-      "UpdateVaultEntryRequestDto": {
+      "UpdateVaultEntryRequest": {
         "type": "object",
         "properties": {
           "cipherTitle": {
@@ -378,7 +378,7 @@
         },
         "additionalProperties": false
       },
-      "VaultAccessRequestDto": {
+      "VaultAccessRequest": {
         "type": "object",
         "properties": {
           "password": {

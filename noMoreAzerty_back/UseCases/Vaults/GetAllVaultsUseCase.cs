@@ -1,6 +1,5 @@
 ﻿using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
-using noMoreAzerty_dto.Dtos.Request;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {

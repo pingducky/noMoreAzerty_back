@@ -16,7 +16,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10",
           "Microsoft.Identity.Web": "3.14.1",
           "Microsoft.Identity.Web.MicrosoftGraph": "4.0.1",
-          "NoMoreAzerty.Shared": "1.0.0",
+          "NoMoreAzerty.Shared": "1.0.6",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -988,11 +988,11 @@
           }
         }
       },
-      "NoMoreAzerty.Shared/1.0.0": {
+      "NoMoreAzerty.Shared/1.0.6": {
         "runtime": {
           "lib/net8.0/noMoreAzerty_dto.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.3.0",
+            "fileVersion": "1.0.3.0"
           }
         }
       },
@@ -1727,12 +1727,12 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
-    "NoMoreAzerty.Shared/1.0.0": {
+    "NoMoreAzerty.Shared/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jayd57N8BuZ7iZ10zhgZXTKQ/xU4FSJ2LkKg4Al5+GtQwzj6x72953T00IWMXVXggXYEve0YJhbqGBmEJoarjg==",
-      "path": "nomoreazerty.shared/1.0.0",
-      "hashPath": "nomoreazerty.shared.1.0.0.nupkg.sha512"
+      "sha512": "sha512-oC9RHl6XbJuuId8W3Sk7SOSvrxQCYFBkHQTlRs/w3qpM6l9oCCcIdM007EKsPSYqor5Jck9QDGwNKMsJXpHIHg==",
+      "path": "nomoreazerty.shared/1.0.6",
+      "hashPath": "nomoreazerty.shared.1.0.6.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",
