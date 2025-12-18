@@ -119,9 +119,7 @@ namespace noMoreAzerty_back.Controllers
             {
                 var entries = await _getVaultEntriesUseCase.ExecuteAsync(vaultId, userId, request.Password);
 
-                var result = entries.Select(e => new GetVaultEntriesResponse()).ToList();
-
-                return Ok(result);
+                return Ok(entries);
             }
             catch (KeyNotFoundException)
             {
