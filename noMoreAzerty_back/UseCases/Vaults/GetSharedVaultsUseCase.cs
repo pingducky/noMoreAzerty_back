@@ -23,7 +23,8 @@ namespace noMoreAzerty_back.UseCases.Vaults
                 Owner = new
                 {
                     v.UserId,
-                }
+                },
+                v.PasswordSalt
             });
         }
     }
