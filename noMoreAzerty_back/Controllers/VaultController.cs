@@ -50,8 +50,6 @@ namespace noMoreAzerty_back.Controllers
 
             var vaults = await _getUserVaultsUseCase.ExecuteAsync(userId);
 
-            var result = vaults.Select(v => new GetVaultResponse());
-
             return Ok(vaults);
         }
 
@@ -69,6 +67,7 @@ namespace noMoreAzerty_back.Controllers
                 return BadRequest("User ID claim is not a valid GUID.");
 
             var sharedVaults = await _getSharedVaultsUseCase.ExecuteAsync(userId);
+
             return Ok(sharedVaults);
         }
 

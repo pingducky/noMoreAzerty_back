@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\noMoreAzerty_back.props" />
+</Project>

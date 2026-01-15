@@ -1,4 +1,5 @@
 using noMoreAzerty_back.Repositories;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {
@@ -11,20 +12,19 @@ namespace noMoreAzerty_back.UseCases.Vaults
             _vaultRepository = vaultRepository;
         }
 
-        public async Task<IEnumerable<object>> ExecuteAsync(Guid userId)
+        public async Task<IEnumerable<GetVaultResponse>> ExecuteAsync(Guid userId)
         {
             var sharedVaults = await _vaultRepository.GetSharedVaultsAsync(userId);
 
-            return sharedVaults.Select(v => new
+            return sharedVaults.Select(v => new GetVaultResponse
             {
-                v.Id,
-                v.Name,
-                v.CreatedAt,
-                Owner = new
+                Id = v.Id,
+                Name = v.Name,
+                CreatedAt = v.CreatedAt,
+                User = new VaultUserResponse
                 {
-                    v.UserId,
-                },
-                v.PasswordSalt
+                    Id = v.UserId
+                }
             });
         }
     }

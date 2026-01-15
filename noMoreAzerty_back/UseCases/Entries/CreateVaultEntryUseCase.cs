@@ -1,6 +1,8 @@
-﻿using noMoreAzerty_back.Models;
+﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Entries
 {
@@ -17,7 +19,8 @@ namespace noMoreAzerty_back.UseCases.Entries
             _vaultRepository = vaultRepository;
         }
 
-        public async Task<Guid> ExecuteAsync(
+        // TODO : Côté front, envoyer la request
+        public async Task<GetVaultEntriesResponse> ExecuteAsync(
             Guid userId,
             Guid vaultId,
             string userIp,
@@ -40,16 +43,17 @@ namespace noMoreAzerty_back.UseCases.Entries
             // Vérifier que le coffre existe
             var vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
-                throw new KeyNotFoundException("Vault not found");
+                throw new NotFoundException("Vault not found");
 
             // Interdire explicitement les coffres partagés (lecture seule)
             bool isShared = await _vaultRepository.IsVaultSharedWithUserAsync(vaultId, userId);
             if (isShared)
-                throw new UnauthorizedAccessException("Shared vaults are read-only");
+                throw new ForbiddenException("Shared vaults are read-only");
 
+            // TODO : Voir si on laisse la vérif ?
             // Vérifier que l'utilisateur est propriétaire du coffre
             if (vault.UserId != userId)
-                throw new UnauthorizedAccessException("User is not owner of the vault");
+                throw new ForbiddenException("User is not owner of the vault");
 
             // Vérifier que l'user s'est authentifier récemment (10 minutes) & mettre à jour la session RAM
             var sessionManager = VaultSessionManager.Instance;
@@ -85,7 +89,30 @@ namespace noMoreAzerty_back.UseCases.Entries
             };
 
             await _vaultEntryRepository.AddAsync(entry);
-            return entry.Id;
+
+            GetVaultEntriesResponse vaultEntry = new GetVaultEntriesResponse
+            {
+                Id = entry.Id,
+                CipherTitle = entry.CipherTitle,
+                TitleIV = entry.TitleIV,
+                TitleTag = entry.TitleTag,
+                CipherUsername = entry.CipherUsername,
+                UsernameIV = entry.UsernameIV,
+                UsernameTag = entry.UsernameTag,
+                CipherPassword = entry.CipherPassword,
+                PasswordIV = entry.PasswordIV,
+                PasswordTag = entry.PasswordTag,
+                CipherUrl = entry.CipherUrl,
+                UrlIV = entry.UrlIV,
+                UrlTag = entry.UrlTag,
+                CipherCommentary = entry.CipherCommentary,
+                ComentaryIV = entry.ComentaryIV,
+                ComentaryTag = entry.ComentaryTag,
+                CreatedAt = entry.CreatedAt,
+                UpdatedAt = entry.UpdatedAt
+            };
+
+            return vaultEntry;
         }
     }
 }

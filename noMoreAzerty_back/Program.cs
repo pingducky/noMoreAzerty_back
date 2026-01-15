@@ -70,11 +70,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<EnsureUserProvisionedMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
-// ----------------------------------------------------
-// 9️⃣ Run App
-// ----------------------------------------------------
 app.Run();
 

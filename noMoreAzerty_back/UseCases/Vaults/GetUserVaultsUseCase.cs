@@ -1,4 +1,5 @@
 ﻿using noMoreAzerty_back.Repositories;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {
@@ -11,27 +12,20 @@ namespace noMoreAzerty_back.UseCases.Vaults
             _vaultRepository = vaultRepository;
         }
 
-        public async Task<IEnumerable<UserVaultReadResponse>> ExecuteAsync(Guid userId)
+        public async Task<IEnumerable<GetVaultResponse>> ExecuteAsync(Guid userId)
         {
             var vaults = await _vaultRepository.GetVaultsByUserAsync(userId);
 
-            return vaults.Select(v => new UserVaultReadResponse
+            return vaults.Select(v => new GetVaultResponse
             {
                 Id = v.Id,
                 Name = v.Name,
                 CreatedAt = v.CreatedAt,
-                IsShared = false,
-                PasswordSalt = v.PasswordSalt
+                User = new VaultUserResponse
+                {
+                    Id = v.UserId,
+                }
             });
-        }
-
-        public class UserVaultReadResponse // Todo: utiliser la response de la librairie partagé
-        {
-            public Guid Id { get; set; }
-            public string? Name { get; set; } = null!;
-            public DateTime CreatedAt { get; set; }
-            public bool IsShared { get; set; }
-            public string? PasswordSalt { get; set; } = null!;
         }
     }
 }
