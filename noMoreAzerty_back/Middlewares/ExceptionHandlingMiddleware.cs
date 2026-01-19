@@ -1,4 +1,5 @@
-﻿using noMoreAzerty_back.Exceptions;
+﻿using Microsoft.AspNetCore.Mvc;
+using noMoreAzerty_back.Exceptions;
 
 namespace noMoreAzerty_back.Middlewares
 {
@@ -6,16 +7,16 @@ namespace noMoreAzerty_back.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-        private readonly IWebHostEnvironment _env;
+        private readonly IHostEnvironment _environment;
 
         public ExceptionHandlingMiddleware(
             RequestDelegate next,
             ILogger<ExceptionHandlingMiddleware> logger,
-            IWebHostEnvironment env)
+            IHostEnvironment environment)
         {
             _next = next;
             _logger = logger;
-            _env = env;
+            _environment = environment;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -26,34 +27,98 @@ namespace noMoreAzerty_back.Middlewares
             }
             catch (Exception ex)
             {
-                await HandleAsync(context, ex);
+                await HandleExceptionAsync(context, ex);
             }
         }
 
-        private async Task HandleAsync(HttpContext context, Exception ex)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = "application/problem+json";
 
-            var statusCode = ex is ApiException apiEx
-                ? apiEx.StatusCode
-                : StatusCodes.Status500InternalServerError;
-
-            if (statusCode >= 500)
-                _logger.LogError(ex, ex.Message);
-            else
-                _logger.LogWarning(ex, ex.Message);
-
-            var response = new
+            var (problemDetails, logLevel) = exception switch
             {
-                status = statusCode,
-                message = _env.IsDevelopment()
-                    ? ex.Message
-                    : "Une erreur est survenue",
-                traceId = context.TraceIdentifier
+                ValidationException validationEx => (CreateValidationProblemDetails(
+                    detail: "One or more validation errors occurred",
+                    instance: context.Request.Path,
+                    errors: validationEx.Errors
+                ), LogLevel.Warning),
+
+                ApiException apiEx => (CreateProblemDetails(
+                    title: GetTitleForException(apiEx),
+                    detail: apiEx.Message,
+                    status: apiEx.StatusCode,
+                    instance: context.Request.Path
+                ), apiEx.StatusCode >= 500 ? LogLevel.Error : LogLevel.Warning),
+
+                UnauthorizedAccessException => (CreateProblemDetails(
+                    title: "Unauthorized",
+                    detail: "Authentication required",
+                    status: StatusCodes.Status401Unauthorized,
+                    instance: context.Request.Path
+                ), LogLevel.Warning),
+
+                _ => (CreateProblemDetails(
+                    title: "Internal Server Error",
+                    detail: _environment.IsDevelopment()
+                        ? exception.Message
+                        : "An unexpected error occurred. Please try again later.",
+                    status: StatusCodes.Status500InternalServerError,
+                    instance: context.Request.Path
+                ), LogLevel.Error)
             };
 
-            context.Response.StatusCode = statusCode;
-            await context.Response.WriteAsJsonAsync(response);
+            context.Response.StatusCode = problemDetails.Status ?? 500;
+
+            _logger.Log(logLevel, exception,
+                "Request {Method} {Path} failed with status {StatusCode}: {Message}",
+                context.Request.Method,
+                context.Request.Path,
+                problemDetails.Status,
+                exception.Message);
+
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
+
+        private static ProblemDetails CreateProblemDetails(
+            string title,
+            string detail,
+            int status,
+            string instance)
+        {
+            return new ProblemDetails
+            {
+                Type = $"https://httpstatuses.com/{status}",  // URI qui documente le type d'erreur
+                Title = title,
+                Detail = detail,
+                Status = status,
+                Instance = instance
+            };
+        }
+
+        private static ValidationProblemDetails CreateValidationProblemDetails(
+            string detail,
+            string instance,
+            Dictionary<string, string[]> errors)
+        {
+            return new ValidationProblemDetails(errors)
+            {
+                Type = "https://httpstatuses.com/400",
+                Title = "Validation Error",
+                Detail = detail,
+                Status = StatusCodes.Status400BadRequest,
+                Instance = instance
+            };
+        }
+
+        private static string GetTitleForException(ApiException exception)
+        {
+            return exception switch
+            {
+                NotFoundException => "Resource Not Found",
+                ForbiddenException => "Forbidden",
+                _ => "API Error"
+            };
         }
     }
+
 }

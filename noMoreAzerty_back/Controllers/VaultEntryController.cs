@@ -41,7 +41,7 @@ namespace noMoreAzerty_back.Controllers
                                ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(userIdClaim, out var userId))
-                throw new ValidationException("Invalid user id");
+                throw new ForbiddenException("Invalid user id");
 
             string? userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
@@ -80,7 +80,7 @@ namespace noMoreAzerty_back.Controllers
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ValidationException("Invalid user id");
+                throw new ForbiddenException("Invalid user id");
 
             var entries = await _getVaultEntriesUseCase.ExecuteAsync(vaultId, userId, request.Password);
 
@@ -97,7 +97,7 @@ namespace noMoreAzerty_back.Controllers
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ValidationException("Invalid user id");
+                throw new ForbiddenException("Invalid user id");
 
             String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
@@ -125,7 +125,7 @@ namespace noMoreAzerty_back.Controllers
                             ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ValidationException("Invalid user id");
+                throw new ForbiddenException("Invalid user id");
 
             String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 

@@ -7,23 +7,24 @@ namespace noMoreAzerty_back.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly AppDbContext _context;
+        private readonly IDbContextFactory<AppDbContext> _contextFactory;
 
-        public UserRepository(AppDbContext context)
+        public UserRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
-            _context = context; // Todo : rendre le cycle de vie du contexte plus court
+            _contextFactory = contextFactory;
         }
 
         public async Task<User?> GetByIdAsync(Guid id)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Id == id);
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddAsync(User user)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await using var context = _contextFactory.CreateDbContext();
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
         }
     }
 }

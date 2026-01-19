@@ -6,21 +6,23 @@ namespace noMoreAzerty_back.Repositories
 {
     public class VaultRepository : IVaultRepository
     {
-        private readonly AppDbContext _context;
+        private readonly IDbContextFactory<AppDbContext> _contextFactory;
 
-        public VaultRepository(AppDbContext context)
+        public VaultRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
-            _context = context; // Todo : rendre le cycle de vie du contexte plus court
+            _contextFactory = contextFactory;
         }
 
         public async Task<IEnumerable<Vault>> GetAllVaultsAsync()
         {
-            return await _context.Vaults.Include(v => v.User).ToListAsync();
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Vaults.Include(v => v.User).ToListAsync();
         }
 
         public async Task<IEnumerable<Vault>> GetVaultsByUserAsync(Guid userId)
         {
-            return await _context.Vaults
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Vaults
                 .Include(v => v.User)
                 .Where(v => v.UserId == userId)
                 .ToListAsync();
@@ -28,7 +30,8 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<IEnumerable<Vault>> GetSharedVaultsAsync(Guid userId)
         {
-            return await _context.Vaults
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Vaults
                 .Include(v => v.User)
                 .Where(v => v.Shares.Any(s => s.UserId == userId))
                 .ToListAsync();
@@ -36,41 +39,45 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task AddAsync(Vault vault)
         {
-            _context.Vaults.Add(vault);
-            await _context.SaveChangesAsync();
+            await using var context = _contextFactory.CreateDbContext();
+            context.Vaults.Add(vault);
+            await context.SaveChangesAsync();
         }
 
         public async Task<bool> VaultExistsAsync(Guid vaultId)
         {
-            return await _context.Vaults.AnyAsync(v => v.Id == vaultId);
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Vaults.AnyAsync(v => v.Id == vaultId);
         }
 
         public async Task<bool> UserHasAccessToVaultAsync(Guid vaultId, Guid userId)
         {
+            await using var context = _contextFactory.CreateDbContext();
             // Vérifie si l'utilisateur est propriétaire
-            bool isOwner = await _context.Vaults
+            bool isOwner = await context.Vaults
                 .AnyAsync(v => v.Id == vaultId && v.UserId == userId);
 
             if (isOwner)
                 return true;
 
             // Vérifie si l'utilisateur a un partage
-            bool isShared = await _context.Shares
-                .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId); 
+            bool isShared = await context.Shares
+                .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId);
 
             return isShared;
         }
 
         public async Task<Vault?> GetByIdAsync(Guid vaultId)
         {
-            return await _context.Vaults.FirstOrDefaultAsync(v => v.Id == vaultId);
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Vaults.FirstOrDefaultAsync(v => v.Id == vaultId);
         }
 
         public async Task<bool> IsVaultSharedWithUserAsync(Guid vaultId, Guid userId)
         {
-            return await _context.Shares
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Shares
                 .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId);
         }
-
     }
 }

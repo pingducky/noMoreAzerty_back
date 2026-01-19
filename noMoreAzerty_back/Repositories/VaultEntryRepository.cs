@@ -6,16 +6,17 @@ namespace noMoreAzerty_back.Repositories
 {
     public class VaultEntryRepository : IVaultEntryRepository
     {
-        private readonly AppDbContext _context; 
+        private readonly IDbContextFactory<AppDbContext> _contextFactory;
 
-        public VaultEntryRepository(AppDbContext context)
+        public VaultEntryRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
-            _context = context; // Todo : rendre le cycle de vie du contexte plus court
+            _contextFactory = contextFactory;
         }
 
         public async Task<List<VaultEntry>> GetEntriesByVaultAsync(Guid vaultId)
         {
-            return await _context.VaultEntries
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.VaultEntries
                 .AsNoTracking()
                 .Where(e => e.VaultId == vaultId && (e.IsActive ?? true))
                 .Select(e => new VaultEntry
@@ -50,7 +51,8 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<VaultEntry?> GetByIdAsync(Guid entryId)
         {
-            return await _context.VaultEntries
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.VaultEntries
                 .FirstOrDefaultAsync(e =>
                     e.Id == entryId &&
                     (e.IsActive ?? true));
@@ -58,14 +60,16 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task AddAsync(VaultEntry entry)
         {
-            await _context.VaultEntries.AddAsync(entry);
-            await _context.SaveChangesAsync();
+            await using var context = _contextFactory.CreateDbContext();
+            await context.VaultEntries.AddAsync(entry);
+            await context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(VaultEntry entry)
         {
-            _context.VaultEntries.Update(entry);
-            await _context.SaveChangesAsync();
+            await using var context = _contextFactory.CreateDbContext();
+            context.VaultEntries.Update(entry);
+            await context.SaveChangesAsync();
         }
     }
 }
