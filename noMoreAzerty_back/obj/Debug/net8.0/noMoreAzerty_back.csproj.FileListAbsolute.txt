@@ -385,3 +385,4 @@ C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_bac
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.pdb
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.genruntimeconfig.cache
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\ref\noMoreAzerty_back.dll
+C:\Users\hugo1\Desktop\NoMoreAzerty\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

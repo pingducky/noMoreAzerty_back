@@ -5,6 +5,7 @@
         Created,
         Updated,
         Deleted,
-        Restored
+        Restored,
+        Read
     }
 }

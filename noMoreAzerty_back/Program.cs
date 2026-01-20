@@ -4,8 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using noMoreAzerty_back.Data;
 using noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Middlewares; 
 using noMoreAzerty_back.Repositories;
+using noMoreAzerty_back.Service;
 using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Users;
 using noMoreAzerty_back.UseCases.Vaults;
@@ -15,14 +17,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContextFactory<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddScoped<IVaultEntryHistoryRepository, VaultEntryHistoryRepository>();
+builder.Services.AddScoped<IVaultEntryHistoryService, VaultEntryHistoryService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVaultRepository, VaultRepository>();
