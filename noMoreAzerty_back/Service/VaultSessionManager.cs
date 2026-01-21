@@ -2,6 +2,10 @@
 
 namespace noMoreAzerty_back.Services
 {
+    /// <summary>
+    /// Gestionnaire de sessions pour l'architecture Split-Knowledge
+    /// Stocke KEY_STORAGE (jamais KEY_DERIVATION) pour chaque utilisateur/coffre
+    /// </summary>
     public class VaultSessionManager
     {
         // Instance unique (Singleton) thread-safe
@@ -10,31 +14,93 @@ namespace noMoreAzerty_back.Services
 
         public static VaultSessionManager Instance => _instance.Value;
 
-        // Stocke les sessions récentes par utilisateur et par coffre
+        // Stocke les sessions par utilisateur et par coffre
         // Clé : (UserId, VaultId)
-        // Valeur : (Date de dernière ouverture, IP)
-        private readonly ConcurrentDictionary<(Guid userId, Guid vaultId), (DateTime lastOpened, string ip)> _sessions
-            = new ConcurrentDictionary<(Guid, Guid), (DateTime, string)>();
+        // Valeur : Session avec KEY_STORAGE, timestamp et IP
+        private readonly ConcurrentDictionary<(Guid userId, Guid vaultId), VaultSession> _sessions
+            = new ConcurrentDictionary<(Guid, Guid), VaultSession>();
 
         private VaultSessionManager() { }
 
-        // Vérifie s'il existe une session récente valide pour ce coffre
-        public bool HasRecentSession(Guid userId, Guid vaultId, string ip, TimeSpan maxAge)
+        /// <summary>
+        /// Crée ou met à jour une session avec KEY_STORAGE
+        /// </summary>
+        public void StoreKeyStorage(Guid userId, Guid vaultId, string keyStorage, string ip)
         {
-            // Tente de récupérer la session existante
-            if (_sessions.TryGetValue((userId, vaultId), out var session))
+            _sessions[(userId, vaultId)] = new VaultSession
             {
-                // Vérifie que l'IP correspond et que la session n'est pas expirée
-                if (session.ip == ip && (DateTime.UtcNow - session.lastOpened) <= maxAge)
-                    return true;
-            }
-            return false;
+                KeyStorage = keyStorage,
+                LastAccessed = DateTime.UtcNow,
+                IpAddress = ip
+            };
         }
 
-        // Met à jour ou crée une session pour ce coffre
-        public void UpdateSession(Guid userId, Guid vaultId, string ip)
+        /// <summary>
+        /// Récupère KEY_STORAGE si session valide
+        /// </summary>
+        public string? GetKeyStorage(Guid userId, Guid vaultId, string ip, TimeSpan maxAge)
         {
-            _sessions[(userId, vaultId)] = (DateTime.UtcNow, ip);
+            if (!_sessions.TryGetValue((userId, vaultId), out var session))
+                return null;
+
+            // Vérifier IP et expiration
+            if (session.IpAddress != ip)
+                return null;
+
+            if ((DateTime.UtcNow - session.LastAccessed) > maxAge)
+            {
+                // Session expirée, la supprimer
+                _sessions.TryRemove((userId, vaultId), out _);
+                return null;
+            }
+
+            // Mettre à jour le timestamp (renouveler la session)
+            session.LastAccessed = DateTime.UtcNow;
+
+            return session.KeyStorage;
         }
+
+        /// <summary>
+        /// Vérifie si une session valide existe (sans retourner KEY_STORAGE)
+        /// </summary>
+        public bool HasValidSession(Guid userId, Guid vaultId, string ip, TimeSpan maxAge)
+        {
+            return GetKeyStorage(userId, vaultId, ip, maxAge) != null;
+        }
+
+        /// <summary>
+        /// Supprime une session (lock vault)
+        /// </summary>
+        public void RemoveSession(Guid userId, Guid vaultId)
+        {
+            _sessions.TryRemove((userId, vaultId), out _);
+        }
+
+        /// <summary>
+        /// Nettoie les sessions expirées (à appeler périodiquement)
+        /// </summary>
+        public void CleanupExpiredSessions(TimeSpan maxAge)
+        {
+            var now = DateTime.UtcNow;
+            var expiredKeys = _sessions
+                .Where(kvp => (now - kvp.Value.LastAccessed) > maxAge)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            foreach (var key in expiredKeys)
+            {
+                _sessions.TryRemove(key, out _);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Représente une session de coffre avec KEY_STORAGE
+    /// </summary>
+    public class VaultSession
+    {
+        public string KeyStorage { get; set; } = null!;
+        public DateTime LastAccessed { get; set; }
+        public string IpAddress { get; set; } = null!;
     }
 }

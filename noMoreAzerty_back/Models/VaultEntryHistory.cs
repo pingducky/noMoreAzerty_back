@@ -13,7 +13,7 @@ namespace noMoreAzerty_back.Models
         public Guid EntryId { get; set; }
 
 
-        // Foreign Keys (navigation properties conservées pour EF)
+        // Foreign Keys
         public Vault? Vault { get; set; }
         public User? User { get; set; }
         public VaultEntry? VaultEntry { get; set; }

@@ -16,13 +16,13 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<IEnumerable<Vault>> GetAllVaultsAsync()
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Vaults.Include(v => v.User).ToListAsync();
         }
 
         public async Task<IEnumerable<Vault>> GetVaultsByUserAsync(Guid userId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Vaults
                 .Include(v => v.User)
                 .Where(v => v.UserId == userId)
@@ -31,7 +31,7 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<IEnumerable<Vault>> GetSharedVaultsAsync(Guid userId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Vaults
                 .Include(v => v.User)
                 .Where(v => v.Shares.Any(s => s.UserId == userId))
@@ -40,21 +40,21 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task AddAsync(Vault vault)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             context.Vaults.Add(vault);
             await context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Vault vault)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             context.Vaults.Update(vault);
             await context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid vaultId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
 
             // Démarrer une transaction pour garantir l'atomicité
             await using var transaction = await context.Database.BeginTransactionAsync();
@@ -62,15 +62,15 @@ namespace noMoreAzerty_back.Repositories
             try
             {
                 // Vérifier que le coffre existe et que l'utilisateur en est le propriétaire
-                var vault = await context.Vaults.FindAsync(vaultId);
+                Vault? vault = await context.Vaults.FindAsync(vaultId);
 
                 if (vault == null)
                 {
                     throw new NotFoundException("Le coffre n'existe pas.");
                 }
 
-                // 1. Supprimer toutes les entrées du coffre
-                var entries = await context.VaultEntries
+                // Supprimer toutes les entrées du coffre
+                List<VaultEntry>? entries = await context.VaultEntries
                     .Where(e => e.VaultId == vaultId)
                     .ToListAsync();
 
@@ -79,8 +79,8 @@ namespace noMoreAzerty_back.Repositories
                     context.VaultEntries.RemoveRange(entries);
                 }
 
-                // 2. Supprimer les historiques d'entrées liés au coffre
-                var histories = await context.VaultEntryHistory
+                // Supprimer les historiques d'entrées liés au coffre
+                List<VaultEntryHistory>? histories = await context.VaultEntryHistory
                     .Where(h => h.VaultId == vaultId)
                     .ToListAsync();
 
@@ -89,8 +89,8 @@ namespace noMoreAzerty_back.Repositories
                     context.VaultEntryHistory.RemoveRange(histories);
                 }
 
-                // 3. Supprimer les partages du coffre
-                var shares = await context.Shares
+                // Supprimer les partages du coffre
+                List<Share>? shares = await context.Shares
                     .Where(s => s.VaultId == vaultId)
                     .ToListAsync();
 
@@ -99,7 +99,7 @@ namespace noMoreAzerty_back.Repositories
                     context.Shares.RemoveRange(shares);
                 }
 
-                // 4. Supprimer le coffre lui-même
+                // Supprimer le coffre lui-même
                 context.Vaults.Remove(vault);
 
                 // Sauvegarder toutes les modifications
@@ -118,13 +118,13 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<bool> VaultExistsAsync(Guid vaultId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Vaults.AnyAsync(v => v.Id == vaultId);
         }
 
         public async Task<bool> UserHasAccessToVaultAsync(Guid vaultId, Guid userId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             // Vérifie si l'utilisateur est propriétaire
             bool isOwner = await context.Vaults
                 .AnyAsync(v => v.Id == vaultId && v.UserId == userId);
@@ -141,21 +141,21 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<Vault?> GetByIdAsync(Guid vaultId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Vaults.FirstOrDefaultAsync(v => v.Id == vaultId);
         }
 
         public async Task<bool> IsVaultSharedWithUserAsync(Guid vaultId, Guid userId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Shares
                 .AnyAsync(s => s.VaultId == vaultId && s.UserId == userId);
         }
 
         public async Task ShareVaultAsync(Guid vaultId, Guid userId)
         {
-            await using var context = _contextFactory.CreateDbContext();
-            var share = new Share
+            await using AppDbContext context = _contextFactory.CreateDbContext();
+            Share share = new Share
             {
                 VaultId = vaultId,
                 UserId = userId,
@@ -169,7 +169,7 @@ namespace noMoreAzerty_back.Repositories
         public async Task UnshareVaultAsync(Guid vaultId, Guid userId)
         {
             await using var context = _contextFactory.CreateDbContext();
-            var share = await context.Shares
+            Share? share = await context.Shares
                 .FirstOrDefaultAsync(s => s.VaultId == vaultId && s.UserId == userId);
 
             if (share != null)

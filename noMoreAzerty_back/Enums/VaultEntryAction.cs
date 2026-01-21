@@ -3,9 +3,8 @@
     public enum VaultEntryAction
     {
         Created,
+        Read,
         Updated,
-        Deleted,
-        Restored,
-        Read
+        Deleted
     }
 }

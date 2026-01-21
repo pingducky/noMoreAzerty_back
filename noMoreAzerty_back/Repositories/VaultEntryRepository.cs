@@ -15,7 +15,7 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<List<VaultEntry>> GetEntriesByVaultAsync(Guid vaultId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.VaultEntries
                 .AsNoTracking()
                 .Where(e => e.VaultId == vaultId && (e.IsActive ?? true))
@@ -51,7 +51,7 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<VaultEntry?> GetByIdAsync(Guid entryId)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.VaultEntries
                 .FirstOrDefaultAsync(e =>
                     e.Id == entryId &&
@@ -60,14 +60,14 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task AddAsync(VaultEntry entry)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             await context.VaultEntries.AddAsync(entry);
             await context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(VaultEntry entry)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             context.VaultEntries.Update(entry);
             await context.SaveChangesAsync();
         }

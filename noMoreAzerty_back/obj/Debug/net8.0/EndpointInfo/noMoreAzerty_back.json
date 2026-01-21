@@ -239,48 +239,6 @@
         }
       }
     },
-    "/api/vaults/{vaultId}/entries/access": {
-      "post": {
-        "tags": [
-          "VaultEntry"
-        ],
-        "parameters": [
-          {
-            "name": "vaultId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VaultAccessRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/vaults/{vaultId}/entries/metadata": {
       "get": {
         "tags": [
@@ -414,6 +372,134 @@
           }
         }
       }
+    },
+    "/api/vaults/{vaultId}/unlock": {
+      "post": {
+        "tags": [
+          "VaultSession"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/session/store-key": {
+      "post": {
+        "tags": [
+          "VaultSession"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreKeyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreKeyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreKeyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vaults/{vaultId}/session/key": {
+      "get": {
+        "tags": [
+          "VaultSession"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "VaultSession"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -512,6 +598,26 @@
         },
         "additionalProperties": false
       },
+      "StoreKeyRequest": {
+        "type": "object",
+        "properties": {
+          "keyStorage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnlockRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateVaultEntryRequest": {
         "type": "object",
         "properties": {
@@ -582,16 +688,6 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "VaultAccessRequest": {
-        "type": "object",
-        "properties": {
-          "password": {
             "type": "string",
             "nullable": true
           }

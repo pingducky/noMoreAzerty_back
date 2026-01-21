@@ -102,14 +102,6 @@ namespace noMoreAzerty_back.Controllers
                 request.PasswordSalt
             );
 
-            //var vaultResponse = new
-            //{
-            //    Id = vaultId,
-            //    Name = request.Name,
-            //    PasswordSalt = request.PasswordSalt,
-            //    CreatedAt = DateTime.UtcNow
-            //};
-
             return CreatedAtAction(nameof(CreateVault), new { id = vaultResponse.Id }, vaultResponse);
         }
 

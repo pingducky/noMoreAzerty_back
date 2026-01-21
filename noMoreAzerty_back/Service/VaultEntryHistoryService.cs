@@ -21,7 +21,7 @@ namespace noMoreAzerty_back.Service
             Guid vaultId,
             VaultEntry entry)
         {
-            var history = new VaultEntryHistory
+            VaultEntryHistory history = new VaultEntryHistory
             {
                 Id = Guid.NewGuid(),
                 Action = action,

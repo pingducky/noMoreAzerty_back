@@ -13,7 +13,6 @@ namespace noMoreAzerty_back.UseCases.Vaults
             _vaultRepository = vaultRepository;
         }
 
-        // TODO : Côté front, envoyer la request
         public async Task<GetVaultResponse> ExecuteAsync(
             Guid userId,
             string name,
@@ -21,12 +20,12 @@ namespace noMoreAzerty_back.UseCases.Vaults
             string passwordSalt)
         {
             // Concaténation mot de passe + sel client
-            var passwordToHash = $"{derivedPassword}{passwordSalt}";
+            String passwordToHash = $"{derivedPassword}{passwordSalt}";
 
             // Hash BCrypt
-            var bcryptHash = BCrypt.Net.BCrypt.HashPassword(passwordToHash);
+            String bcryptHash = BCrypt.Net.BCrypt.HashPassword(passwordToHash);
 
-            var vault = new Vault
+            Vault vault = new Vault
             {
                 Id = Guid.NewGuid(),
                 Name = name,

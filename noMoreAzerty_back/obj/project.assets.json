@@ -1487,7 +1487,7 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
-      "NoMoreAzerty.Shared/1.0.6": {
+      "NoMoreAzerty.Shared/1.0.10": {
         "type": "package",
         "compile": {
           "lib/net8.0/noMoreAzerty_dto.dll": {}
@@ -5655,15 +5655,15 @@
         "readme.md"
       ]
     },
-    "NoMoreAzerty.Shared/1.0.6": {
-      "sha512": "oC9RHl6XbJuuId8W3Sk7SOSvrxQCYFBkHQTlRs/w3qpM6l9oCCcIdM007EKsPSYqor5Jck9QDGwNKMsJXpHIHg==",
+    "NoMoreAzerty.Shared/1.0.10": {
+      "sha512": "FZHhoMZxA+Qj7s7HcYrwGc/6S7tiMihbJvmFvOzV657mt0pRvXmBv5Eov5A310YltckERcR30rtpOx34qtO1fQ==",
       "type": "package",
-      "path": "nomoreazerty.shared/1.0.6",
+      "path": "nomoreazerty.shared/1.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net8.0/noMoreAzerty_dto.dll",
-        "nomoreazerty.shared.1.0.6.nupkg.sha512",
+        "nomoreazerty.shared.1.0.10.nupkg.sha512",
         "nomoreazerty.shared.nuspec"
       ]
     },
@@ -8961,28 +8961,28 @@
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.10",
       "Microsoft.Identity.Web >= 3.*",
       "Microsoft.Identity.Web.MicrosoftGraph >= 4.0.1",
-      "NoMoreAzerty.Shared >= 1.0.6",
+      "NoMoreAzerty.Shared >= 1.0.10",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hugo1\\.nuget\\packages\\": {},
+    "C:\\Users\\antho\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
+      "projectUniqueName": "C:\\Users\\antho\\OneDrive\\Documents\\Cours\\M2\\Architecture .NET\\TP\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
       "projectName": "noMoreAzerty_back",
-      "projectPath": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
-      "packagesPath": "C:\\Users\\hugo1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hugo1\\Desktop\\NoMoreAzerty\\noMoreAzerty_back\\noMoreAzerty_back\\obj\\",
+      "projectPath": "C:\\Users\\antho\\OneDrive\\Documents\\Cours\\M2\\Architecture .NET\\TP\\noMoreAzerty_back\\noMoreAzerty_back\\noMoreAzerty_back.csproj",
+      "packagesPath": "C:\\Users\\antho\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\antho\\OneDrive\\Documents\\Cours\\M2\\Architecture .NET\\TP\\noMoreAzerty_back\\noMoreAzerty_back\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hugo1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\antho\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8991,6 +8991,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -9063,7 +9064,7 @@
           },
           "NoMoreAzerty.Shared": {
             "target": "Package",
-            "version": "[1.0.6, )"
+            "version": "[1.0.10, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -9081,6 +9082,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9089,7 +9108,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

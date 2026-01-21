@@ -24,7 +24,6 @@ namespace noMoreAzerty_back.UseCases.Entries
             _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 
-        // TODO : Côté front, envoyer la request
         public async Task<GetVaultEntriesResponse> ExecuteAsync(
             Guid userId,
             Guid vaultId,
@@ -60,17 +59,17 @@ namespace noMoreAzerty_back.UseCases.Entries
             if (vault.UserId != userId)
                 throw new ForbiddenException("User is not owner of the vault");
 
-            // Vérifier que l'user s'est authentifier récemment (10 minutes) & mettre à jour la session RAM
+            // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
-            var maxAge = TimeSpan.FromMinutes(10);
+            var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
 
-            if (!sessionManager.HasRecentSession(userId, vaultId, userIp, maxAge))
+            if (keyStorage == null)
             {
-                sessionManager.UpdateSession(userId, vaultId, userIp);
+                throw new ForbiddenException("No valid vault session. Please unlock vault first.");
             }
 
             // Création de l'entrée (données déjà chiffrées)
-            var entry = new VaultEntry
+            VaultEntry entry = new VaultEntry
             {
                 Id = Guid.NewGuid(),
                 VaultId = vaultId,

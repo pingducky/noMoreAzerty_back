@@ -33,11 +33,13 @@ namespace noMoreAzerty_back.UseCases.Vaults
             if (!await _vaultRepository.UserHasAccessToVaultAsync(vaultId, userId))
                 throw new ForbiddenException("User does not have access to this vault.");
 
-            // Vérifier la session
+            // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
-            if (!sessionManager.HasRecentSession(userId, vaultId, userIp, TimeSpan.FromMinutes(10)))
+            var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
+
+            if (keyStorage == null)
             {
-                throw new ForbiddenException("No valid vault session. Please authenticate first.");
+                throw new ForbiddenException("No valid vault session. Please unlock vault first.");
             }
 
             // Récupérer l'entrée

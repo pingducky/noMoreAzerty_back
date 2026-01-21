@@ -6,5 +6,7 @@ namespace noMoreAzerty_back.Interfaces
     {
         Task<User?> GetByIdAsync(Guid id);
         Task AddAsync(User user);
+        Task<List<User>> GetAllAsync();
+        Task<bool> IsUserAdminAsync(Guid userId);
     }
 }

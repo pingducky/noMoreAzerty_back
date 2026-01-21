@@ -11,5 +11,6 @@
         public HashSet<Vault>? Vaults { get; set; }
         public HashSet<VaultEntryHistory>? VaultEntryHistories { get; set; }
         public HashSet<Share>? Shares { get; set; }
+        public HashSet<UserRole>? Roles { get; set; } = new();
     }
 }

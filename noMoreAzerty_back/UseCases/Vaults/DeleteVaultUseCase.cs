@@ -1,4 +1,5 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
 
 namespace noMoreAzerty_back.UseCases.Vaults
@@ -15,7 +16,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
         public async Task ExecuteAsync(Guid vaultId, Guid userId)
         {
             // Vérifier que le coffre existe
-            var vault = await _vaultRepository.GetByIdAsync(vaultId);
+            Vault? vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
                 throw new NotFoundException("Le coffre n'existe pas.");
 

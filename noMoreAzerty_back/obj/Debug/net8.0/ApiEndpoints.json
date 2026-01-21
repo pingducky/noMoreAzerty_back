@@ -184,27 +184,6 @@
   },
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
-    "Method": "ValidateVaultAccess",
-    "RelativePath": "api/vaults/{vaultId}/entries/access",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "vaultId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "noMoreAzerty_dto.DTOs.Request.VaultAccessRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "noMoreAzerty_back.Controllers.VaultEntryController",
     "Method": "CreateVaultEntry",
     "RelativePath": "api/vaults/{vaultId}/entries/create",
     "HttpMethod": "POST",
@@ -235,6 +214,80 @@
       {
         "Name": "vaultId",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultSessionController",
+    "Method": "GetKeyStorage",
+    "RelativePath": "api/vaults/{vaultId}/session/key",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultSessionController",
+    "Method": "DeleteKeyStorage",
+    "RelativePath": "api/vaults/{vaultId}/session/key",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultSessionController",
+    "Method": "StoreKeyStorage",
+    "RelativePath": "api/vaults/{vaultId}/session/store-key",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.StoreKeyRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultSessionController",
+    "Method": "UnlockVault",
+    "RelativePath": "api/vaults/{vaultId}/unlock",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "noMoreAzerty_back.Controllers.UnlockRequest",
         "IsRequired": true
       }
     ],

@@ -16,15 +16,30 @@ namespace noMoreAzerty_back.Repositories
 
         public async Task<User?> GetByIdAsync(Guid id)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             return await context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddAsync(User user)
         {
-            await using var context = _contextFactory.CreateDbContext();
+            await using AppDbContext context = _contextFactory.CreateDbContext();
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<List<User>> GetAllAsync()
+        {
+            await using AppDbContext context = _contextFactory.CreateDbContext();
+            return await context.Users
+                .OrderByDescending(u => u.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsUserAdminAsync(Guid userId)
+        {
+            await using AppDbContext context = _contextFactory.CreateDbContext();
+            return await context.UserRoles
+                .AnyAsync(ur => ur.UserId == userId && ur.Role == "Admin");
         }
     }
 }

@@ -20,6 +20,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
             {
                 Id = v.Id,
                 Name = v.Name,
+                PasswordSalt = v.PasswordSalt,
                 CreatedAt = v.CreatedAt,
                 User = new VaultUserResponse
                 {

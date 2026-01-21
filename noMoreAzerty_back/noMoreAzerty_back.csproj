@@ -31,7 +31,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Identity.Web" Version="3.*" />
     <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="4.0.1" />
-    <PackageReference Include="NoMoreAzerty.Shared" Version="1.0.6" />
+    <PackageReference Include="NoMoreAzerty.Shared" Version="1.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

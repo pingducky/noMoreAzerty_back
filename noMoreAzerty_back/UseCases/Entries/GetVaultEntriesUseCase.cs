@@ -1,8 +1,5 @@
-﻿using Microsoft.Graph;
-using noMoreAzerty_back.Exceptions;
-using noMoreAzerty_back.Interfaces.Services;
+﻿using noMoreAzerty_back.Exceptions;
 using noMoreAzerty_back.Models;
-using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_dto.DTOs.Response;
 
@@ -22,7 +19,7 @@ namespace noMoreAzerty_back.UseCases.Entries
         public async Task<IReadOnlyList<GetVaultEntriesResponse>> ExecuteAsync(Guid vaultId, Guid userId, string password)
         {
             // Récupération du coffre
-            var vault = await _vaultRepository.GetByIdAsync(vaultId);
+            Vault? vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
                 throw new NotFoundException("Vault not found.");
 

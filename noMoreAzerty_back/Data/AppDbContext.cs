@@ -11,9 +11,16 @@ namespace noMoreAzerty_back.Data
         public DbSet<VaultEntry> VaultEntries { get; set; }
         public DbSet<VaultEntryHistory> VaultEntryHistory { get; set; }
         public DbSet<Share> Shares { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.Roles)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Share>().HasKey(s => new { s.UserId, s.VaultId });
             modelBuilder.Entity<Vault>()
                 .HasOne(v => v.User)

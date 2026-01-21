@@ -1,4 +1,5 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
 using static noMoreAzerty_back.Controllers.VaultEntryController;
@@ -24,7 +25,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
             string userIp)
         {
             // Vérifier que le coffre existe
-            var vault = await _vaultRepository.GetByIdAsync(vaultId);
+            Vault? vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
                 throw new NotFoundException("Vault not found.");
 
@@ -32,15 +33,17 @@ namespace noMoreAzerty_back.UseCases.Vaults
             if (!await _vaultRepository.UserHasAccessToVaultAsync(vaultId, userId))
                 throw new ForbiddenException("User does not have access to this vault.");
 
-            // Vérifier la session
+            // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
-            if (!sessionManager.HasRecentSession(userId, vaultId, userIp, TimeSpan.FromMinutes(10)))
+            var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
+
+            if (keyStorage == null)
             {
-                throw new ForbiddenException("No valid vault session. Please authenticate first.");
+                throw new ForbiddenException("No valid vault session. Please unlock vault first.");
             }
 
             // Récupérer les entrées
-            var entries = await _vaultEntryRepository.GetEntriesByVaultAsync(vaultId);
+            List<VaultEntry> entries = await _vaultEntryRepository.GetEntriesByVaultAsync(vaultId);
 
             // Retourner uniquement les métadonnées (titre + id)
             return entries.Select(e => new VaultEntryMetadataResponse

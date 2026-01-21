@@ -54,15 +54,13 @@ namespace noMoreAzerty_back.UseCases.Entries
             if (vault.UserId != userId)
                 throw new ForbiddenException("User is not owner of the vault");
 
-            // Vérifier la session RAM
+            // ✅ Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
-            if (!sessionManager.HasRecentSession(
-                    userId,
-                    vaultId,
-                    userIp,
-                    TimeSpan.FromMinutes(10)))
+            var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
+
+            if (keyStorage == null)
             {
-                throw new ForbiddenException("No valid vault session");
+                throw new ForbiddenException("No valid vault session. Please unlock vault first.");
             }
 
             // Vérifier que l'entrée existe

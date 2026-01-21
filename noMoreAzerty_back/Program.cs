@@ -7,6 +7,7 @@ using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Middlewares; 
 using noMoreAzerty_back.Repositories;
+using noMoreAzerty_back.UseCases.History;
 using noMoreAzerty_back.Service;
 using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Users;
@@ -28,8 +29,9 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IVaultEntryHistoryRepository, VaultEntryHistoryRepository>();
 builder.Services.AddScoped<IVaultEntryHistoryService, VaultEntryHistoryService>();
 
-builder.Services.AddScoped<IVaultEntryHistoryService, VaultEntryHistoryService>();
+builder.Services.AddScoped<IAdminAuthorizationService, AdminAuthorizationService>();
 
+builder.Services.AddScoped<IVaultEntryHistoryService, VaultEntryHistoryService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVaultRepository, VaultRepository>();
 builder.Services.AddScoped<IVaultEntryRepository, VaultEntryRepository>();
@@ -38,7 +40,6 @@ builder.Services.AddScoped<GetOrCreateCurrentUserUseCase>();
 
 builder.Services.AddScoped<CreateVaultUseCase>();
 builder.Services.AddScoped<DeleteVaultEntryUseCase>();
-builder.Services.AddScoped<ValidateVaultAccessUseCase>();
 builder.Services.AddScoped<UpdateVaultEntryUseCase>();
 
 builder.Services.AddScoped<CreateVaultEntryUseCase>();
@@ -51,6 +52,8 @@ builder.Services.AddScoped<UpdateVaultNameUseCase>();
 builder.Services.AddScoped<DeleteVaultUseCase>();
 builder.Services.AddScoped<GetVaultEntriesMetadataUseCase>();
 builder.Services.AddScoped<GetVaultEntryByIdUseCase>();
+builder.Services.AddScoped<GetUserVaultEntryHistoryUseCase>();
+builder.Services.AddScoped<GetUsersUseCase>();
 
 builder.Services.AddControllers();
 

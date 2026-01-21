@@ -75,27 +75,7 @@ namespace noMoreAzerty_back.Controllers
 
             return CreatedAtAction(nameof(CreateVaultEntry), new { id = vaultEntry.Id }, vaultEntry);
         }
-
-        /// <summary>
-        /// Validation du mot de passe et création de session pour accéder au coffre
-        /// </summary>
-        [HttpPost("access")]
-        public async Task<IActionResult> ValidateVaultAccess(Guid vaultId, [FromBody] VaultAccessRequest request)
-        {
-            String? oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
-
-            // Récupérer l'IP de l'utilisateur
-            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-
-            var accessGranted = await _validateVaultAccessUseCase.ExecuteAsync(vaultId, userId, request.Password, userIp);
-
-            return Ok(accessGranted);
-        }
-
+        
         /// <summary>
         /// Récupération des métadonnées (titres) des entrées d'un coffre
         /// </summary>
