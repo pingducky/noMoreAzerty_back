@@ -111,7 +111,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.22": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.23": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.1.2"
@@ -3091,10 +3091,10 @@
         "logo.png"
       ]
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.22": {
-      "sha512": "3lqhBK+t4u8Ajl2je5UC9jCoDI+8zLz/YBVjwxQKfFF9NyzACf4QQmlmKnpH/LdkVSxCjLwvJ1ko4k0EAgy8cg==",
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.23": {
+      "sha512": "eGgCDqVxCO1mgltQHgM9kwAVwVfVOf0azPMcysCXONgJCQwb4bOM2OnKTKCJ2gn3PXQkRfEElHRFXrpR87Qx5A==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.22",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3102,7 +3102,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
         "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.8.0.22.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.8.0.23.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
@@ -9009,7 +9009,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -9081,6 +9082,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.23, 8.0.23]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9089,7 +9108,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

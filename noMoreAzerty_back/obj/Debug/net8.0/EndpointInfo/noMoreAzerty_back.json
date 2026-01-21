@@ -60,6 +60,143 @@
         }
       }
     },
+    "/api/Vault/{vaultId}": {
+      "put": {
+        "tags": [
+          "Vault"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vault"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault/{vaultId}/share": {
+      "post": {
+        "tags": [
+          "Vault"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareVaultRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareVaultRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareVaultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault/{vaultId}/share/{targetUserId}": {
+      "delete": {
+        "tags": [
+          "Vault"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "targetUserId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vaults/{vaultId}/entries/create": {
       "post": {
         "tags": [
@@ -144,7 +281,60 @@
         }
       }
     },
+    "/api/vaults/{vaultId}/entries/metadata": {
+      "get": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/vaults/{vaultId}/entries/{entryId}": {
+      "get": {
+        "tags": [
+          "VaultEntry"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "entryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "VaultEntry"
@@ -312,6 +502,16 @@
         },
         "additionalProperties": false
       },
+      "ShareVaultRequest": {
+        "type": "object",
+        "properties": {
+          "targetUserId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateVaultEntryRequest": {
         "type": "object",
         "properties": {
@@ -372,6 +572,16 @@
             "nullable": true
           },
           "comentaryTag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVaultNameRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
             "type": "string",
             "nullable": true
           }

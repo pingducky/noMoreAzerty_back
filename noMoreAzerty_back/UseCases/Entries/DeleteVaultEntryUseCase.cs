@@ -1,4 +1,6 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Interfaces.Services;
+using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
 
@@ -8,13 +10,16 @@ namespace noMoreAzerty_back.UseCases.Entries
     {
         private readonly IVaultEntryRepository _vaultEntryRepository;
         private readonly IVaultRepository _vaultRepository;
+        private readonly IVaultEntryHistoryService _vaultEntryHistoryService;
 
         public DeleteVaultEntryUseCase(
             IVaultEntryRepository vaultEntryRepository,
-            IVaultRepository vaultRepository)
+            IVaultRepository vaultRepository,
+            IVaultEntryHistoryService vaultEntryHistoryService)
         {
             _vaultEntryRepository = vaultEntryRepository;
             _vaultRepository = vaultRepository;
+            _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 
         public async Task ExecuteAsync(
@@ -55,6 +60,15 @@ namespace noMoreAzerty_back.UseCases.Entries
             // Soft delete
             entry.IsActive = false;
             entry.UpdatedAt = DateTime.UtcNow;
+
+
+            // Journalisation basique de la suppression
+            await _vaultEntryHistoryService.LogEntryCreatedAsync(
+                VaultEntryAction.Deleted,
+                userId: userId,
+                vaultId: vaultId,
+                entry: entry
+            );
 
             await _vaultEntryRepository.UpdateAsync(entry);
         }

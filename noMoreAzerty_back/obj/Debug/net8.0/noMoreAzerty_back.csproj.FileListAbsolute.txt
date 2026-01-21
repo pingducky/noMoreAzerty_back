@@ -373,11 +373,6 @@ C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_bac
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.sourcelink.json
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets\msbuild.noMoreAzerty_back.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets\msbuild.build.noMoreAzerty_back.props
-C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.noMoreAzerty_back.props
-C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.noMoreAzerty_back.props
-C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\scopedcss\bundle\noMoreAzerty_back.styles.css
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAz.3B72FA66.Up2Date
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.dll
@@ -385,3 +380,12 @@ C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_bac
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.pdb
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.genruntimeconfig.cache
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\ref\noMoreAzerty_back.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\noMoreAzerty_back.staticwebassets.endpoints.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\swae.build.ex.cache
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

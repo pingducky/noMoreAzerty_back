@@ -1,5 +1,6 @@
 ﻿using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {
@@ -13,7 +14,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
         }
 
         // TODO : Côté front, envoyer la request
-        public async Task<Guid> ExecuteAsync(
+        public async Task<GetVaultResponse> ExecuteAsync(
             Guid userId,
             string name,
             string derivedPassword,
@@ -37,7 +38,16 @@ namespace noMoreAzerty_back.UseCases.Vaults
 
             await _vaultRepository.AddAsync(vault);
 
-            return vault.Id;
+            return new GetVaultResponse
+            {
+                Id = vault.Id,
+                Name = vault.Name,
+                CreatedAt = vault.CreatedAt,
+                User = new VaultUserResponse
+                {
+                    Id = vault.UserId,
+                }
+            };
         }
     }
 }

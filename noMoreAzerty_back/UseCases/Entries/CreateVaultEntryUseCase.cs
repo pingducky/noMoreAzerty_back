@@ -1,5 +1,7 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models;
+using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
 using noMoreAzerty_dto.DTOs.Response;
@@ -10,13 +12,16 @@ namespace noMoreAzerty_back.UseCases.Entries
     {
         private readonly IVaultEntryRepository _vaultEntryRepository;
         private readonly IVaultRepository _vaultRepository;
+        private readonly IVaultEntryHistoryService _vaultEntryHistoryService;
 
         public CreateVaultEntryUseCase(
             IVaultEntryRepository vaultEntryRepository,
-            IVaultRepository vaultRepository)
+            IVaultRepository vaultRepository,
+            IVaultEntryHistoryService vaultEntryHistoryService)
         {
             _vaultEntryRepository = vaultEntryRepository;
             _vaultRepository = vaultRepository;
+            _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 
         // TODO : Côté front, envoyer la request
@@ -89,6 +94,14 @@ namespace noMoreAzerty_back.UseCases.Entries
             };
 
             await _vaultEntryRepository.AddAsync(entry);
+
+            // Journalisation basique de la création
+            await _vaultEntryHistoryService.LogEntryCreatedAsync(
+                VaultEntryAction.Created,
+                userId: userId,
+                vaultId: vaultId,
+                entry: entry
+            );
 
             GetVaultEntriesResponse vaultEntry = new GetVaultEntriesResponse
             {
