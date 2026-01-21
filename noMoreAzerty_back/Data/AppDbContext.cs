@@ -9,7 +9,7 @@ namespace noMoreAzerty_back.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Vault> Vaults { get; set; }
         public DbSet<VaultEntry> VaultEntries { get; set; }
-        public DbSet<VaultEntryHistory> VaultEntryHistories { get; set; }
+        public DbSet<VaultEntryHistory> VaultEntryHistory { get; set; }
         public DbSet<Share> Shares { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace noMoreAzerty_back.Data
             modelBuilder.Entity<VaultEntryHistory>()
                 .HasOne(h => h.VaultEntry)
                 .WithMany(e => e.VaultEntryHistories)
-                .HasForeignKey(h => h.VaultEntryId)
+                .HasForeignKey(h => h.EntryId)
                 .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Share>()
                 .HasOne(s => s.User)
@@ -142,29 +142,14 @@ namespace noMoreAzerty_back.Data
                 new VaultEntryHistory
                 {
                     Id = historyId,
-                    CipherTitle = "cipher_history_title",
-                    TitleIV = "hiv1",
-                    TitleTag = "htag1",
-                    CipherUsername = "cipher_history_user",
-                    UsernameIV = "hiv2",
-                    UsernameTag = "htag2",
-                    CipherPassword = "cipher_history_pass",
-                    PasswordIV = "hiv3",
-                    PasswordTag = "htag3",
-                    CipherUrl = "cipher_history_url",
-                    UrlIV = "hiv4",
-                    UrlTag = "htag4",
-                    CipherCommentary = "cipher_history_comment",
-                    ComentaryIV = "hiv5",
-                    ComentaryTag = "htag5",
-                    CreatedAt = createdAt,
-                    UpdatedAt = createdAt,
                     Action = noMoreAzerty_back.Models.Enums.VaultEntryAction.Created,
-                    VaultId = vaultId,
+                    CreatedAt = createdAt,
                     UserId = userId,
-                    VaultEntryId = entry1Id
+                    VaultId = vaultId,
+                    EntryId = entry1Id
                 }
             );
+
 
             modelBuilder.Entity<Share>().HasData(
                 new Share
