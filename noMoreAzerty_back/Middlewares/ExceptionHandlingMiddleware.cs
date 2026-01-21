@@ -120,5 +120,4 @@ namespace noMoreAzerty_back.Middlewares
             };
         }
     }
-
 }

@@ -1,7 +1,8 @@
 ﻿using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Models.Enums;
-using noMoreAzerty_back.Interfaces;
+﻿using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
+
 
 namespace noMoreAzerty_back.Service
 {
@@ -32,6 +33,5 @@ namespace noMoreAzerty_back.Service
 
             await _historyRepository.AddAsync(history);
         }
-
     }
 }

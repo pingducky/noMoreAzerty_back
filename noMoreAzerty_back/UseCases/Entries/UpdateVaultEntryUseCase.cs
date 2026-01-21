@@ -2,7 +2,9 @@
 using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
+using noMoreAzerty_back.Service;
 using noMoreAzerty_back.Services;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Entries
 {
@@ -22,7 +24,7 @@ namespace noMoreAzerty_back.UseCases.Entries
             _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 
-        public async Task ExecuteAsync(
+        public async Task<GetVaultEntriesResponse> ExecuteAsync(
             Guid userId,
             Guid vaultId,
             Guid entryId,
@@ -104,6 +106,37 @@ namespace noMoreAzerty_back.UseCases.Entries
             );
 
             await _vaultEntryRepository.UpdateAsync(entry);
+
+            // Journalisation basique de l'update
+            await _vaultEntryHistoryService.LogEntryCreatedAsync(
+                VaultEntryAction.Read,
+                userId: userId,
+                vaultId: vaultId,
+                entry: entry
+            );
+
+            // Retourner l'entrée mise à jour
+            return new GetVaultEntriesResponse
+            {
+                Id = entry.Id,
+                CipherTitle = entry.CipherTitle,
+                TitleIV = entry.TitleIV,
+                TitleTag = entry.TitleTag,
+                CipherUsername = entry.CipherUsername,
+                UsernameIV = entry.UsernameIV,
+                UsernameTag = entry.UsernameTag,
+                CipherPassword = entry.CipherPassword,
+                PasswordIV = entry.PasswordIV,
+                PasswordTag = entry.PasswordTag,
+                CipherUrl = entry.CipherUrl,
+                UrlIV = entry.UrlIV,
+                UrlTag = entry.UrlTag,
+                CipherCommentary = entry.CipherCommentary,
+                ComentaryIV = entry.ComentaryIV,
+                ComentaryTag = entry.ComentaryTag,
+                CreatedAt = entry.CreatedAt,
+                UpdatedAt = entry.UpdatedAt
+            };
         }
     }
 }

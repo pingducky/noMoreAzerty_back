@@ -20,7 +20,7 @@ namespace noMoreAzerty_back.UseCases.Entries
             IVaultEntryHistoryService vaultEntryHistoryService)
         {
             _vaultEntryRepository = vaultEntryRepository;
-            _vaultRepository = vaultRepository;_vaultEntryHistoryService = vaultEntryHistoryService;
+            _vaultRepository = vaultRepository;
             _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 

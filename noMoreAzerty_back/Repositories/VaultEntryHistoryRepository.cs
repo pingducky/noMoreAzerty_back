@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using noMoreAzerty_back.Data;
+using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Models;
-using noMoreAzerty_back.Interfaces;
 
 namespace noMoreAzerty_back.Repositories
 {
@@ -17,7 +17,7 @@ namespace noMoreAzerty_back.Repositories
         public async Task AddAsync(VaultEntryHistory history)
         {
             await using var context = _contextFactory.CreateDbContext();
-            await context.VaultEntryHistory.AddAsync(history);
+            await context.VaultEntryHistory.AddAsync(history); 
             await context.SaveChangesAsync();
         }
 

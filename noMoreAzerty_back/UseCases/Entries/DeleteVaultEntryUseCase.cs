@@ -69,6 +69,15 @@ namespace noMoreAzerty_back.UseCases.Entries
             entry.IsActive = false;
             entry.UpdatedAt = DateTime.UtcNow;
 
+
+            // Journalisation basique de la suppression
+            await _vaultEntryHistoryService.LogEntryCreatedAsync(
+                VaultEntryAction.Deleted,
+                userId: userId,
+                vaultId: vaultId,
+                entry: entry
+            );
+
             await _vaultEntryRepository.UpdateAsync(entry);
         }
     }

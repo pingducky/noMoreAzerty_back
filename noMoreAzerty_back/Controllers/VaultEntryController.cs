@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.Exceptions;
 using noMoreAzerty_back.Models;
 using noMoreAzerty_back.UseCases.Entries;
+using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_dto.DTOs.Request;
 using noMoreAzerty_dto.DTOs.Response;
 
@@ -14,20 +15,26 @@ namespace noMoreAzerty_back.Controllers
     public class VaultEntryController : ControllerBase
     {
         private readonly CreateVaultEntryUseCase _createVaultEntryUseCase;
-        private readonly GetVaultEntriesUseCase _getVaultEntriesUseCase;
+        private readonly ValidateVaultAccessUseCase _validateVaultAccessUseCase;
         private readonly DeleteVaultEntryUseCase _deleteVaultEntryUseCase;
         private readonly UpdateVaultEntryUseCase _updateVaultEntryUseCase;
+        private readonly GetVaultEntriesMetadataUseCase _getVaultEntriesMetadataUseCase;
+        private readonly GetVaultEntryByIdUseCase _getVaultEntryByIdUseCase;
 
         public VaultEntryController(
             CreateVaultEntryUseCase createVaultEntryUseCase,
-            GetVaultEntriesUseCase getVaultEntriesUseCase,
+            ValidateVaultAccessUseCase validateVaultAccessUseCase,
             DeleteVaultEntryUseCase deleteVaultEntryUseCase,
-            UpdateVaultEntryUseCase updateVaultEntryUseCase)
+            UpdateVaultEntryUseCase updateVaultEntryUseCase,
+            GetVaultEntriesMetadataUseCase getVaultEntriesMetadataUseCase,
+            GetVaultEntryByIdUseCase getVaultEntryByIdUseCase)
         {
             _createVaultEntryUseCase = createVaultEntryUseCase;
-            _getVaultEntriesUseCase = getVaultEntriesUseCase;
+            _validateVaultAccessUseCase = validateVaultAccessUseCase;
             _deleteVaultEntryUseCase = deleteVaultEntryUseCase;
             _updateVaultEntryUseCase = updateVaultEntryUseCase;
+            _getVaultEntriesMetadataUseCase = getVaultEntriesMetadataUseCase;
+            _getVaultEntryByIdUseCase = getVaultEntryByIdUseCase;
         }
 
 
@@ -69,12 +76,11 @@ namespace noMoreAzerty_back.Controllers
             return CreatedAtAction(nameof(CreateVaultEntry), new { id = vaultEntry.Id }, vaultEntry);
         }
 
-
         /// <summary>
-        /// Récupération des entrés d'un coffre (encore chiffré)
+        /// Validation du mot de passe et création de session pour accéder au coffre
         /// </summary>
         [HttpPost("access")]
-        public async Task<IActionResult> GetVaultEntries(Guid vaultId, [FromBody] VaultAccessRequest request)
+        public async Task<IActionResult> ValidateVaultAccess(Guid vaultId, [FromBody] VaultAccessRequest request)
         {
             String? oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
@@ -82,9 +88,50 @@ namespace noMoreAzerty_back.Controllers
             if (!Guid.TryParse(oidClaim, out var userId))
                 throw new ForbiddenException("Invalid user id");
 
-            var entries = await _getVaultEntriesUseCase.ExecuteAsync(vaultId, userId, request.Password);
+            // Récupérer l'IP de l'utilisateur
+            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
-            return Ok(entries);
+            var accessGranted = await _validateVaultAccessUseCase.ExecuteAsync(vaultId, userId, request.Password, userIp);
+
+            return Ok(accessGranted);
+        }
+
+        /// <summary>
+        /// Récupération des métadonnées (titres) des entrées d'un coffre
+        /// </summary>
+        [HttpGet("metadata")]
+        public async Task<IActionResult> GetEntriesMetadata(Guid vaultId)
+        {
+            String? oidClaim = User.FindFirst("oid")?.Value
+                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (!Guid.TryParse(oidClaim, out var userId))
+                throw new ForbiddenException("Invalid user id");
+
+            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+            var metadata = await _getVaultEntriesMetadataUseCase.ExecuteAsync(vaultId, userId, userIp);
+
+            return Ok(metadata);
+        }
+
+        /// <summary>
+        /// Récupération d'une entrée spécifique par son ID
+        /// </summary>
+        [HttpGet("{entryId}")]
+        public async Task<IActionResult> GetEntryById(Guid vaultId, Guid entryId)
+        {
+            String? oidClaim = User.FindFirst("oid")?.Value
+                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+
+            if (!Guid.TryParse(oidClaim, out var userId))
+                throw new ForbiddenException("Invalid user id");
+
+            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+            GetVaultEntriesResponse entry = await _getVaultEntryByIdUseCase.ExecuteAsync(vaultId, entryId, userId, userIp);
+
+            return Ok(entry);
         }
 
         /// <summary>
@@ -129,7 +176,7 @@ namespace noMoreAzerty_back.Controllers
 
             String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
-            await _updateVaultEntryUseCase.ExecuteAsync(
+            GetVaultEntriesResponse updatedEntry = await _updateVaultEntryUseCase.ExecuteAsync(
                 userId,
                 vaultId,
                 entryId,
@@ -151,7 +198,17 @@ namespace noMoreAzerty_back.Controllers
                 request.ComentaryTag
             );
 
-            return NoContent();
+            return Ok(updatedEntry);
+        }
+
+        public class VaultEntryMetadataResponse
+        {
+            public Guid Id { get; set; }
+            public string? CipherTitle { get; set; }
+            public string? TitleIV { get; set; }
+            public string? TitleTag { get; set; }
+            public DateTime? CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
         }
     }
 }
