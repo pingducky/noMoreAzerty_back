@@ -390,3 +390,11 @@ C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_bac
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAz.3B72FA66.Up2Date
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\noMoreAzerty_back.genruntimeconfig.cache
 C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\obj\Debug\net8.0\ref\noMoreAzerty_back.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Abstractions.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Authentication.Azure.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Http.HttpClientLibrary.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Serialization.Form.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Serialization.Json.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Serialization.Multipart.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Microsoft.Kiota.Serialization.Text.dll
+C:\Users\antho\OneDrive\Documents\Cours\M2\Architecture .NET\TP\noMoreAzerty_back\noMoreAzerty_back\bin\Debug\net8.0\Std.UriTemplate.dll

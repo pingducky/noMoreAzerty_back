@@ -10,7 +10,7 @@ namespace noMoreAzerty_back.Interfaces.Services
             VaultEntryAction action,
             Guid userId,
             Guid vaultId,
-            VaultEntry entry
+            VaultEntry? entry
         );
     }
 }

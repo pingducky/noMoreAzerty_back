@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Tous les fichiers .cs sont inclus automatiquement grâce au SDK-style project -->
-    <!-- Donc pas besoin de déclarer manuellement les UseCases -->
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.*" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
@@ -29,9 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Graph" Version="5.100.0" />
     <PackageReference Include="Microsoft.Identity.Web" Version="3.*" />
     <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="4.0.1" />
-    <PackageReference Include="NoMoreAzerty.Shared" Version="1.0.9" />
+    <PackageReference Include="NoMoreAzerty.Shared" Version="1.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

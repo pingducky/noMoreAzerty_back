@@ -58,7 +58,7 @@ namespace noMoreAzerty_back.Data
                 .HasForeignKey(s => s.VaultId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // === Config tables ===
+            // Config tables
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Vault>().ToTable("Vault");
             modelBuilder.Entity<VaultEntry>().ToTable("VaultEntry");

@@ -1,7 +1,7 @@
-﻿using noMoreAzerty_back.Interfaces.Services;
+﻿﻿using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Models.Enums;
-﻿using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
 
 
 namespace noMoreAzerty_back.Service
@@ -19,7 +19,7 @@ namespace noMoreAzerty_back.Service
             VaultEntryAction action,
             Guid userId,
             Guid vaultId,
-            VaultEntry entry)
+            VaultEntry? entry)
         {
             VaultEntryHistory history = new VaultEntryHistory
             {
@@ -28,7 +28,7 @@ namespace noMoreAzerty_back.Service
                 CreatedAt = DateTime.UtcNow,
                 UserId = userId,
                 VaultId = vaultId,
-                EntryId = entry.Id
+                EntryId = entry?.Id ?? Guid.Empty
             };
 
             await _historyRepository.AddAsync(history);

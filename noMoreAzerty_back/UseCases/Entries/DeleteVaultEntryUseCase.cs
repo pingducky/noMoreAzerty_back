@@ -33,11 +33,14 @@ namespace noMoreAzerty_back.UseCases.Entries
             if (vault == null)
                 throw new NotFoundException("Vault not found");
 
-            // Vérifier que l'utilisateur est owner (pas partagé)
-            if (vault.UserId != userId)
-                throw new ForbiddenException("User is not owner of the vault");
+            // Vérifier que l'utilisateur a accès au coffre (propriétaire ou partagé)
+            bool isOwner = vault.UserId == userId;
+            bool isShared = await _vaultRepository.IsVaultSharedWithUserAsync(vaultId, userId);
 
-            // ✅ Vérifier la session avec VaultSessionManager
+            if (!isOwner && !isShared)
+                throw new ForbiddenException("User does not have access to this vault");
+
+            // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
             var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
 

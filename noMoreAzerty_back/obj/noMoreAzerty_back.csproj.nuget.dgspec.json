@@ -89,6 +89,10 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[5.100.0, )"
+            },
             "Microsoft.Identity.Web": {
               "target": "Package",
               "version": "[3.*, )"
@@ -99,7 +103,7 @@
             },
             "NoMoreAzerty.Shared": {
               "target": "Package",
-              "version": "[1.0.10, )"
+              "version": "[1.0.14, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

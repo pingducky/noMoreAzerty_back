@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using noMoreAzerty_back.Exceptions;
-using noMoreAzerty_back.Models;
 using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_dto.DTOs.Request;
@@ -15,7 +14,6 @@ namespace noMoreAzerty_back.Controllers
     public class VaultEntryController : ControllerBase
     {
         private readonly CreateVaultEntryUseCase _createVaultEntryUseCase;
-        private readonly ValidateVaultAccessUseCase _validateVaultAccessUseCase;
         private readonly DeleteVaultEntryUseCase _deleteVaultEntryUseCase;
         private readonly UpdateVaultEntryUseCase _updateVaultEntryUseCase;
         private readonly GetVaultEntriesMetadataUseCase _getVaultEntriesMetadataUseCase;
@@ -23,14 +21,12 @@ namespace noMoreAzerty_back.Controllers
 
         public VaultEntryController(
             CreateVaultEntryUseCase createVaultEntryUseCase,
-            ValidateVaultAccessUseCase validateVaultAccessUseCase,
             DeleteVaultEntryUseCase deleteVaultEntryUseCase,
             UpdateVaultEntryUseCase updateVaultEntryUseCase,
             GetVaultEntriesMetadataUseCase getVaultEntriesMetadataUseCase,
             GetVaultEntryByIdUseCase getVaultEntryByIdUseCase)
         {
             _createVaultEntryUseCase = createVaultEntryUseCase;
-            _validateVaultAccessUseCase = validateVaultAccessUseCase;
             _deleteVaultEntryUseCase = deleteVaultEntryUseCase;
             _updateVaultEntryUseCase = updateVaultEntryUseCase;
             _getVaultEntriesMetadataUseCase = getVaultEntriesMetadataUseCase;
@@ -179,16 +175,6 @@ namespace noMoreAzerty_back.Controllers
             );
 
             return Ok(updatedEntry);
-        }
-
-        public class VaultEntryMetadataResponse
-        {
-            public Guid Id { get; set; }
-            public string? CipherTitle { get; set; }
-            public string? TitleIV { get; set; }
-            public string? TitleTag { get; set; }
-            public DateTime? CreatedAt { get; set; }
-            public DateTime? UpdatedAt { get; set; }
         }
     }
 }

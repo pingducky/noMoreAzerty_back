@@ -1,5 +1,7 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models;
+using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 
 namespace noMoreAzerty_back.UseCases.Vaults
@@ -7,6 +9,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
     public class DeleteVaultUseCase
     {
         private readonly IVaultRepository _vaultRepository;
+
 
         public DeleteVaultUseCase(IVaultRepository vaultRepository)
         {
@@ -26,6 +29,7 @@ namespace noMoreAzerty_back.UseCases.Vaults
 
             // Supprimer le coffre (cascade delete pour les entrées et partages)
             await _vaultRepository.DeleteAsync(vaultId);
+
         }
     }
 }

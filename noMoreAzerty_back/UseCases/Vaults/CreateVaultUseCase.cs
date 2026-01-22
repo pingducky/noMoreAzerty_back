@@ -1,4 +1,7 @@
-﻿using noMoreAzerty_back.Models;
+﻿using Microsoft.Graph.Models;
+using noMoreAzerty_back.Interfaces.Services;
+using noMoreAzerty_back.Models;
+using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_dto.DTOs.Response;
 

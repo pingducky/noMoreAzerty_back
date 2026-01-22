@@ -1,6 +1,6 @@
 ﻿using noMoreAzerty_back.Interfaces;
-using noMoreAzerty_dto.DTOs.Response;
 using noMoreAzerty_back.Models;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Users
 {

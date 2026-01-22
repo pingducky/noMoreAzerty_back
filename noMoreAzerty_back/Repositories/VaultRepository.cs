@@ -178,10 +178,5 @@ namespace noMoreAzerty_back.Repositories
                 await context.SaveChangesAsync();
             }
         }
-
-        public class ShareVaultRequest
-        {
-            public Guid TargetUserId { get; set; }
-        }
     }
 }

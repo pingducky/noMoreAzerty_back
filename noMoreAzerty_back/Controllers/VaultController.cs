@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using noMoreAzerty_back.Exceptions;
-using noMoreAzerty_back.UseCases.Entries;
 using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_dto.DTOs.Request;
-using noMoreAzerty_dto.DTOs.Response;
 using System.Security.Claims;
-using static noMoreAzerty_back.Repositories.VaultRepository;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -21,8 +17,10 @@ namespace noMoreAzerty_back.Controllers
         private readonly ILogger<VaultController> _logger;
         private readonly ShareVaultUseCase _shareVaultUseCase;
         private readonly UnshareVaultUseCase _unshareVaultUseCase;
-        private readonly UpdateVaultNameUseCase _updateVaultNameUseCase;
+        private readonly UpdateVaultUseCase _updateVaultUseCase;
         private readonly DeleteVaultUseCase _deleteVaultUseCase;
+        private readonly GetVaultUsersUseCase _getVaultUsersUseCase;
+
 
         public VaultController(
             GetUserVaultsUseCase getUserVaultsUseCase,
@@ -30,8 +28,9 @@ namespace noMoreAzerty_back.Controllers
             CreateVaultUseCase createVaultUseCase,
             ShareVaultUseCase shareVaultUseCase,
             UnshareVaultUseCase unshareVaultUseCase,
-            UpdateVaultNameUseCase updateVaultNameUseCase,
+            UpdateVaultUseCase updateVaultNameUseCase,
             DeleteVaultUseCase deleteVaultUseCase,
+            GetVaultUsersUseCase getVaultUsersUseCase,
             ILogger<VaultController> logger)
         {
             _getUserVaultsUseCase = getUserVaultsUseCase;
@@ -39,8 +38,9 @@ namespace noMoreAzerty_back.Controllers
             _createVaultUseCase = createVaultUseCase;
             _shareVaultUseCase = shareVaultUseCase;
             _unshareVaultUseCase = unshareVaultUseCase;
-            _updateVaultNameUseCase = updateVaultNameUseCase;
+            _updateVaultUseCase = updateVaultNameUseCase;
             _deleteVaultUseCase = deleteVaultUseCase;
+            _getVaultUsersUseCase = getVaultUsersUseCase;
             _logger = logger;
         }
 
@@ -70,10 +70,11 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("shared")]
         public async Task<IActionResult> GetSharedVaults()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                              ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+            String? oidClaim = HttpContext.User.FindFirst("oid")?.Value
+                           ?? HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
+                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 
-            if (!Guid.TryParse(userIdClaim, out var userId))
+            if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("User ID claim is not a valid GUID.");
 
             var sharedVaults = await _getSharedVaultsUseCase.ExecuteAsync(userId);
@@ -106,10 +107,10 @@ namespace noMoreAzerty_back.Controllers
         }
 
         /// <summary>
-        /// Modifier le nom d'un coffre
+        /// Modifier un coffre (nom et/ou mot de passe)
         /// </summary>
         [HttpPut("{vaultId}")]
-        public async Task<IActionResult> UpdateVaultName(Guid vaultId, [FromBody] UpdateVaultNameRequest request)
+        public async Task<IActionResult> UpdateVault(Guid vaultId, [FromBody] UpdateVaultRequest request)
         {
             string oidClaim = User.FindFirst("oid")?.Value
                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
@@ -118,7 +119,13 @@ namespace noMoreAzerty_back.Controllers
             if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-            var updatedVault = await _updateVaultNameUseCase.ExecuteAsync(vaultId, userId, request.Name);
+            var updatedVault = await _updateVaultUseCase.ExecuteAsync(
+                vaultId,
+                userId,
+                request.Name,
+                request.NewDerivedPassword,
+                request.PasswordSalt
+            );
 
             return Ok(updatedVault);
         }
@@ -142,6 +149,24 @@ namespace noMoreAzerty_back.Controllers
         }
 
         /// <summary>
+        /// Récupérer tous les utilisateurs ayant accès à un coffre
+        /// </summary>
+        [HttpGet("{vaultId}/users")]
+        public async Task<IActionResult> GetVaultUsers(Guid vaultId)
+        {
+            string oidClaim = User.FindFirst("oid")?.Value
+                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
+                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+
+            if (!Guid.TryParse(oidClaim, out var userId))
+                return BadRequest("Invalid user id");
+
+            var result = await _getVaultUsersUseCase.ExecuteAsync(vaultId, userId);
+
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Partager un coffre avec un utilisateur
         /// </summary>
         [HttpPost("{vaultId}/share")]
@@ -154,12 +179,12 @@ namespace noMoreAzerty_back.Controllers
             if (!Guid.TryParse(oidClaim, out var userId))
                 return BadRequest("Invalid user id");
 
-                var result = await _shareVaultUseCase.ExecuteAsync(vaultId, userId, request.TargetUserId);
+            var result = await _shareVaultUseCase.ExecuteAsync(vaultId, userId, request.UserName);
 
-                if (!result)
-                    return Conflict("Le coffre est déjà partagé avec cet utilisateur.");
+            if (!result)
+                return Conflict("Le coffre est déjà partagé avec cet utilisateur.");
 
-                return Ok(new { message = "Coffre partagé avec succès." });
+            return Ok(new { message = "Coffre partagé avec succès." });
         }
 
         /// <summary>
@@ -181,11 +206,6 @@ namespace noMoreAzerty_back.Controllers
                     return NotFound("Le coffre n'est pas partagé avec cet utilisateur.");
 
                 return Ok(new { message = "Partage supprimé avec succès." });
-        }
-
-        public class UpdateVaultNameRequest
-        {
-            public string Name { get; set; } = null!;
         }
     }
 }

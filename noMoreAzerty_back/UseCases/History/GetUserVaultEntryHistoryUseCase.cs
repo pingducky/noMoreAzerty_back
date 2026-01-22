@@ -1,9 +1,9 @@
 ﻿using noMoreAzerty_back.Exceptions;
 using noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_dto.DTOs.Response;
-using noMoreAzerty_back.Models;
 
 namespace noMoreAzerty_back.UseCases.History
 {
@@ -29,8 +29,8 @@ namespace noMoreAzerty_back.UseCases.History
             if (page <= 0) page = 1;
             if (pageSize <= 0 || pageSize > 200) pageSize = 50;
 
-            // Optionnel : vérifier que l'utilisateur existe
-            var user = await _userRepository.GetByIdAsync(userId);
+            // vérifier que l'utilisateur existe
+            User? user = await _userRepository.GetByIdAsync(userId);
             if (user is null)
             {
                 throw new NotFoundException("User not found");
@@ -56,13 +56,5 @@ namespace noMoreAzerty_back.UseCases.History
                 Items = mapped.ToList()
             };
         }
-    }
-
-    public class PagedResultResponse<T>
-    {
-        public int Page { get; set; }
-        public int PageSize { get; set; }
-        public int TotalCount { get; set; }
-        public IEnumerable<T> Items { get; set; } = Enumerable.Empty<T>();
     }
 }

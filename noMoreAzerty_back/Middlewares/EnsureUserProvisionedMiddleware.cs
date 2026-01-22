@@ -15,7 +15,7 @@ namespace noMoreAzerty_back.Middlewares
 
         public async Task InvokeAsync(HttpContext context, GetOrCreateCurrentUserUseCase getOrCreateUser)
         {
-            // 1. Vérifie l'authentification
+            // Vérifie l'authentification
             if (!context.User.Identity?.IsAuthenticated ?? true)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
@@ -23,7 +23,7 @@ namespace noMoreAzerty_back.Middlewares
                 return;
             }
 
-            // 2. Récupère le GUID Entra ID
+            // Récupère le GUID Entra ID
             var oidClaim = context.User.FindFirst("oid")?.Value
                      ?? context.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value ?? null;
             if (string.IsNullOrWhiteSpace(oidClaim) || !Guid.TryParse(oidClaim, out var userGuid))
@@ -32,11 +32,14 @@ namespace noMoreAzerty_back.Middlewares
                 await context.Response.WriteAsync("Unauthorized: identifiant utilisateur invalide.");
                 return;
             }
+            
+            // Récupérer le nom depuis les claiims
+            string? name = context.User.FindFirst("name")?.Value;
 
             try
             {
-                // 3. Vérifie ou crée le user
-                await getOrCreateUser.ExecuteAsync(userGuid);
+                // Vérifie ou crée le user
+                await getOrCreateUser.ExecuteAsync(userGuid, name);
             }
             catch (Exception ex)
             {
@@ -46,7 +49,7 @@ namespace noMoreAzerty_back.Middlewares
                 return;
             }
 
-            // 4. Passe la main au middleware suivant
+            // Passe la main au middleware suivant
             await _next(context);
         }
     }

@@ -2,6 +2,7 @@
 using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.UseCases.History;
 using noMoreAzerty_back.Interfaces.Services;
+using noMoreAzerty_back.Exceptions;
 
 namespace noMoreAzerty_back.Controllers
 {
@@ -31,7 +32,7 @@ namespace noMoreAzerty_back.Controllers
             [FromQuery] int pageSize = 5)
         {
             if (!await _adminAuthService.IsAdminAuthorizedAsync(HttpContext))
-                return Forbid("Admin role required");
+                throw new ForbiddenException("Admin role required");
             var result = await _useCase.ExecuteAsync(userId, actions, page, pageSize);
             return Ok(result);
         }

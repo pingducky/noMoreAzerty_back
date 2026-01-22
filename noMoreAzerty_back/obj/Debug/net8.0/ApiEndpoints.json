@@ -1,5 +1,46 @@
 [
   {
+    "ContainingType": "noMoreAzerty_back.Controllers.UsersController",
+    "Method": "GetUsers",
+    "RelativePath": "api/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.UserLogsController",
+    "Method": "GetUserLogs",
+    "RelativePath": "api/users/{userId}/logs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "actions",
+        "Type": "noMoreAzerty_back.Models.Enums.VaultEntryAction[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
     "Method": "CreateVault",
     "RelativePath": "api/Vault",
@@ -17,7 +58,7 @@
   },
   {
     "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
-    "Method": "UpdateVaultName",
+    "Method": "UpdateVault",
     "RelativePath": "api/Vault/{vaultId}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -30,7 +71,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.VaultController\u002BUpdateVaultNameRequest",
+        "Type": "noMoreAzerty_dto.DTOs.Request.UpdateVaultRequest",
         "IsRequired": true
       }
     ],
@@ -67,7 +108,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Repositories.VaultRepository\u002BShareVaultRequest",
+        "Type": "noMoreAzerty_dto.DTOs.Request.ShareVaultRequest",
         "IsRequired": true
       }
     ],
@@ -88,6 +129,22 @@
       },
       {
         "Name": "targetUserId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "noMoreAzerty_back.Controllers.VaultController",
+    "Method": "GetVaultUsers",
+    "RelativePath": "api/Vault/{vaultId}/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vaultId",
         "Type": "System.Guid",
         "IsRequired": true
       }
@@ -266,7 +323,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.StoreKeyRequest",
+        "Type": "noMoreAzerty_dto.DTOs.Request.StoreKeyRequest",
         "IsRequired": true
       }
     ],
@@ -287,7 +344,7 @@
       },
       {
         "Name": "request",
-        "Type": "noMoreAzerty_back.Controllers.UnlockRequest",
+        "Type": "noMoreAzerty_dto.DTOs.Request.UnlockRequest",
         "IsRequired": true
       }
     ],

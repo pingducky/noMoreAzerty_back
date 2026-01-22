@@ -1,4 +1,6 @@
 ﻿using noMoreAzerty_back.Exceptions;
+using noMoreAzerty_back.Interfaces.Services;
+using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
 using noMoreAzerty_dto.DTOs.Response;
@@ -9,13 +11,16 @@ namespace noMoreAzerty_back.UseCases.Vaults
     {
         private readonly IVaultRepository _vaultRepository;
         private readonly IVaultEntryRepository _vaultEntryRepository;
+        private readonly IVaultEntryHistoryService _vaultEntryHistoryService;
 
         public GetVaultEntryByIdUseCase(
             IVaultRepository vaultRepository,
-            IVaultEntryRepository vaultEntryRepository)
+            IVaultEntryRepository vaultEntryRepository,
+            IVaultEntryHistoryService vaultEntryHistoryService)
         {
             _vaultRepository = vaultRepository;
             _vaultEntryRepository = vaultEntryRepository;
+            _vaultEntryHistoryService = vaultEntryHistoryService;
         }
 
         public async Task<GetVaultEntriesResponse> ExecuteAsync(
@@ -51,6 +56,14 @@ namespace noMoreAzerty_back.UseCases.Vaults
             // Vérifier que l'entrée appartient bien au coffre
             if (entry.VaultId != vaultId)
                 throw new ForbiddenException("Entry does not belong to this vault.");
+
+            // Journalisation
+            await _vaultEntryHistoryService.LogEntryCreatedAsync(
+                VaultEntryAction.Read,
+                userId: userId,
+                vaultId: vaultId,
+                entry: entry
+            );
 
             // Retourner l'entrée complète
             return new GetVaultEntriesResponse

@@ -2,7 +2,7 @@
 using noMoreAzerty_back.Models;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
-using static noMoreAzerty_back.Controllers.VaultEntryController;
+using noMoreAzerty_dto.DTOs.Response;
 
 namespace noMoreAzerty_back.UseCases.Vaults
 {

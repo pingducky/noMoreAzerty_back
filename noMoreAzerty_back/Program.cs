@@ -48,12 +48,13 @@ builder.Services.AddScoped<GetSharedVaultsUseCase>();
 builder.Services.AddScoped<GetUserVaultsUseCase>();
 builder.Services.AddScoped<ShareVaultUseCase>();
 builder.Services.AddScoped<UnshareVaultUseCase>();
-builder.Services.AddScoped<UpdateVaultNameUseCase>();
+builder.Services.AddScoped<UpdateVaultUseCase>();
 builder.Services.AddScoped<DeleteVaultUseCase>();
 builder.Services.AddScoped<GetVaultEntriesMetadataUseCase>();
 builder.Services.AddScoped<GetVaultEntryByIdUseCase>();
 builder.Services.AddScoped<GetUserVaultEntryHistoryUseCase>();
-builder.Services.AddScoped<GetUsersUseCase>();
+builder.Services.AddScoped<GetUsersUseCase>(); 
+builder.Services.AddScoped<GetVaultUsersUseCase>();
 
 builder.Services.AddControllers();
 

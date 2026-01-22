@@ -48,16 +48,13 @@ namespace noMoreAzerty_back.UseCases.Entries
             var vault = await _vaultRepository.GetByIdAsync(vaultId);
             if (vault == null)
                 throw new NotFoundException("Vault not found");
-
-            // Interdire explicitement les coffres partagés (lecture seule)
+            
+            // Vérifier que l'utilisateur a accès au coffre (propriétaire ou partagé)
+            bool isOwner = vault.UserId == userId;
             bool isShared = await _vaultRepository.IsVaultSharedWithUserAsync(vaultId, userId);
-            if (isShared)
-                throw new ForbiddenException("Shared vaults are read-only");
 
-            // TODO : Voir si on laisse la vérif ?
-            // Vérifier que l'utilisateur est propriétaire du coffre
-            if (vault.UserId != userId)
-                throw new ForbiddenException("User is not owner of the vault");
+            if (!isOwner && !isShared)
+                throw new ForbiddenException("User does not have access to this vault");
 
             // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;

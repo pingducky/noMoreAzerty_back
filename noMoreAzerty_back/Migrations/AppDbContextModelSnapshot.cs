@@ -63,6 +63,9 @@ namespace noMoreAzerty_back.Migrations
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
@@ -75,6 +78,29 @@ namespace noMoreAzerty_back.Migrations
                             IsActive = true,
                             LastLogin = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("noMoreAzerty_back.Models.UserRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("noMoreAzerty_back.Models.Vault", b =>
@@ -299,6 +325,17 @@ namespace noMoreAzerty_back.Migrations
                     b.Navigation("Vault");
                 });
 
+            modelBuilder.Entity("noMoreAzerty_back.Models.UserRole", b =>
+                {
+                    b.HasOne("noMoreAzerty_back.Models.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("noMoreAzerty_back.Models.Vault", b =>
                 {
                     b.HasOne("noMoreAzerty_back.Models.User", "User")
@@ -349,6 +386,8 @@ namespace noMoreAzerty_back.Migrations
 
             modelBuilder.Entity("noMoreAzerty_back.Models.User", b =>
                 {
+                    b.Navigation("Roles");
+
                     b.Navigation("Shares");
 
                     b.Navigation("VaultEntryHistories");

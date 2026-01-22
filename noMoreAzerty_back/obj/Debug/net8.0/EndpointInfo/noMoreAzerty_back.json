@@ -5,6 +5,69 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/users/{userId}/logs": {
+      "get": {
+        "tags": [
+          "UserLogs"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "actions",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/VaultEntryAction"
+              }
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Vault/my": {
       "get": {
         "tags": [
@@ -80,17 +143,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+                "$ref": "#/components/schemas/UpdateVaultRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+                "$ref": "#/components/schemas/UpdateVaultRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateVaultNameRequest"
+                "$ref": "#/components/schemas/UpdateVaultRequest"
               }
             }
           }
@@ -102,6 +165,29 @@
         }
       },
       "delete": {
+        "tags": [
+          "Vault"
+        ],
+        "parameters": [
+          {
+            "name": "vaultId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vault/{vaultId}/users": {
+      "get": {
         "tags": [
           "Vault"
         ],
@@ -591,9 +677,9 @@
       "ShareVaultRequest": {
         "type": "object",
         "properties": {
-          "targetUserId": {
+          "userName": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -684,15 +770,33 @@
         },
         "additionalProperties": false
       },
-      "UpdateVaultNameRequest": {
+      "UpdateVaultRequest": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "newDerivedPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordSalt": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "VaultEntryAction": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
       }
     }
   }

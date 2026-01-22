@@ -17,7 +17,7 @@ namespace noMoreAzerty_back.UseCases.Users
             _context = context;
         }
 
-        public async Task<User> ExecuteAsync(Guid userGuid)
+        public async Task<User> ExecuteAsync(Guid userGuid, string? name)
         {
             await using var transaction =
                 await _context.Database.BeginTransactionAsync();
@@ -31,6 +31,7 @@ namespace noMoreAzerty_back.UseCases.Users
                     user = new User
                     {
                         Id = userGuid,
+                        Name = name,
                         CreatedAt = DateTime.UtcNow,
                         IsActive = true
                     };

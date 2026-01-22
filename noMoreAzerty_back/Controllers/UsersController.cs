@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using noMoreAzerty_back.Interfaces;
+using noMoreAzerty_back.Exceptions;
 using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.UseCases.Users;
 
@@ -27,7 +27,7 @@ namespace noMoreAzerty_back.Controllers
         public async Task<IActionResult> GetUsers()
         {
             if (!await _adminAuthService.IsAdminAuthorizedAsync(HttpContext))
-                return Forbid("Admin role required");
+                throw new ForbiddenException("Admin role required");
 
             var result = await _getUsersUseCase.ExecuteAsync();
             return Ok(result);

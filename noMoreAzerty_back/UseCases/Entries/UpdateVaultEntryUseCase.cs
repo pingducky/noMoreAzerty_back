@@ -2,7 +2,6 @@
 using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Models.Enums;
 using noMoreAzerty_back.Repositories;
-using noMoreAzerty_back.Service;
 using noMoreAzerty_back.Services;
 using noMoreAzerty_dto.DTOs.Response;
 
@@ -50,11 +49,15 @@ namespace noMoreAzerty_back.UseCases.Entries
             if (vault == null)
                 throw new NotFoundException("Vault not found");
 
-            // Vérifier que l'utilisateur est owner
-            if (vault.UserId != userId)
-                throw new ForbiddenException("User is not owner of the vault");
 
-            // ✅ Vérifier la session avec VaultSessionManager
+            // Vérifier que l'utilisateur a accès au coffre (propriétaire ou partagé)
+            bool isOwner = vault.UserId == userId;
+            bool isShared = await _vaultRepository.IsVaultSharedWithUserAsync(vaultId, userId);
+
+            if (!isOwner && !isShared)
+                throw new ForbiddenException("User does not have access to this vault");
+
+            // Vérifier la session avec VaultSessionManager
             var sessionManager = VaultSessionManager.Instance;
             var keyStorage = sessionManager.GetKeyStorage(userId, vaultId, userIp, TimeSpan.FromMinutes(30));
 
@@ -97,21 +100,13 @@ namespace noMoreAzerty_back.UseCases.Entries
 
             // Journalisation basique de l'update
             await _vaultEntryHistoryService.LogEntryCreatedAsync(
-                VaultEntryAction.Read,
+                VaultEntryAction.Updated,
                 userId: userId,
                 vaultId: vaultId,
                 entry: entry
             );
 
             await _vaultEntryRepository.UpdateAsync(entry);
-
-            // Journalisation basique de l'update
-            await _vaultEntryHistoryService.LogEntryCreatedAsync(
-                VaultEntryAction.Read,
-                userId: userId,
-                vaultId: vaultId,
-                entry: entry
-            );
 
             // Retourner l'entrée mise à jour
             return new GetVaultEntriesResponse
