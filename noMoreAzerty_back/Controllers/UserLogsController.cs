@@ -8,7 +8,7 @@ namespace noMoreAzerty_back.Controllers
 {
     [ApiController]
     [Route("api/users/{userId:guid}/logs")]
-    public class UserLogsController : ControllerBase
+    public class UserLogsController : BaseController
     {
         private readonly GetUserVaultEntryHistoryUseCase _useCase;
         private readonly IAdminAuthorizationService _adminAuthService;

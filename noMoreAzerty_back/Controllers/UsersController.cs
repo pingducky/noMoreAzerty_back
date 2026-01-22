@@ -7,7 +7,7 @@ namespace noMoreAzerty_back.Controllers
 {
     [ApiController]
     [Route("api/users")] // Todo: filtrer par role admin
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly GetUsersUseCase _getUsersUseCase;
         private readonly IAdminAuthorizationService _adminAuthService;
@@ -26,6 +26,8 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
+            Guid userId = GetAuthenticatedUserId();
+
             if (!await _adminAuthService.IsAdminAuthorizedAsync(HttpContext))
                 throw new ForbiddenException("Admin role required");
 

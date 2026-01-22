@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using noMoreAzerty_back.Exceptions;
 using noMoreAzerty_back.Repositories;
 using noMoreAzerty_back.Services;
@@ -10,7 +11,7 @@ namespace noMoreAzerty_back.Controllers;
 [ApiController]
 [Route("api/vaults")]
 [Authorize]
-public class VaultSessionController : ControllerBase
+public class VaultSessionController : BaseController
 {
     private readonly IVaultRepository _vaultRepository;
     private readonly ILogger<VaultSessionController> _logger;
@@ -28,9 +29,10 @@ public class VaultSessionController : ControllerBase
     /// Vérifie le mot de passe du coffre
     /// </summary>
     [HttpPost("{vaultId:guid}/unlock")]
+    [EnableRateLimiting("unlock")]
     public async Task<IActionResult> UnlockVault(Guid vaultId, [FromBody] UnlockRequest request)
     {
-        var userId = GetCurrentUserId();
+        Guid userId = GetAuthenticatedUserId();
 
         // Récupérer le coffre
         var vault = await _vaultRepository.GetByIdAsync(vaultId);
@@ -57,8 +59,8 @@ public class VaultSessionController : ControllerBase
     [HttpPost("{vaultId:guid}/session/store-key")]
     public async Task<IActionResult> StoreKeyStorage(Guid vaultId, [FromBody] StoreKeyRequest request)
     {
-        var userId = GetCurrentUserId();
-        var userIp = GetUserIp();
+        Guid userId = GetAuthenticatedUserId();
+        string userIp = GetUserIp();
 
         // Vérifier l'accès au coffre
         if (!await _vaultRepository.UserHasAccessToVaultAsync(vaultId, userId))
@@ -83,8 +85,8 @@ public class VaultSessionController : ControllerBase
     [HttpGet("{vaultId:guid}/session/key")]
     public async Task<IActionResult> GetKeyStorage(Guid vaultId)
     {
-        var userId = GetCurrentUserId();
-        var userIp = GetUserIp();
+        Guid userId = GetAuthenticatedUserId();
+        string userIp = GetUserIp();
 
         // Vérifier l'accès
         if (!await _vaultRepository.UserHasAccessToVaultAsync(vaultId, userId))
@@ -113,7 +115,7 @@ public class VaultSessionController : ControllerBase
     [HttpDelete("{vaultId:guid}/session/key")]
     public IActionResult DeleteKeyStorage(Guid vaultId)
     {
-        var userId = GetCurrentUserId();
+        Guid userId = GetAuthenticatedUserId();
 
         // Supprimer la session
         var sessionManager = VaultSessionManager.Instance;
@@ -126,17 +128,6 @@ public class VaultSessionController : ControllerBase
         );
 
         return Ok(new { message = "Session cleared" });
-    }
-
-    private Guid GetCurrentUserId()
-    {
-        var oidClaim = User.FindFirst("oid")?.Value
-                      ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-        if (!Guid.TryParse(oidClaim, out var userId))
-            throw new ForbiddenException("Invalid user ID");
-
-        return userId;
     }
 
     private string GetUserIp()

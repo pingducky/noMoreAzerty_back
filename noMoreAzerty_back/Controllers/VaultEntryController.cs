@@ -11,7 +11,7 @@ namespace noMoreAzerty_back.Controllers
     [ApiController]
     [Route("api/vaults/{vaultId}/entries")]
     [Authorize]
-    public class VaultEntryController : ControllerBase
+    public class VaultEntryController : BaseController
     {
         private readonly CreateVaultEntryUseCase _createVaultEntryUseCase;
         private readonly DeleteVaultEntryUseCase _deleteVaultEntryUseCase;
@@ -40,11 +40,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateVaultEntry(Guid vaultId, [FromBody] CreateVaultEntryRequest request)
         {
-            string? userIdClaim = User.FindFirst("oid")?.Value
-                               ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-
-            if (!Guid.TryParse(userIdClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             string? userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
@@ -78,13 +74,9 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("metadata")]
         public async Task<IActionResult> GetEntriesMetadata(Guid vaultId)
         {
-            String? oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            Guid userId = GetAuthenticatedUserId();
 
-            if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
-
-            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             var metadata = await _getVaultEntriesMetadataUseCase.ExecuteAsync(vaultId, userId, userIp);
 
@@ -97,13 +89,9 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("{entryId}")]
         public async Task<IActionResult> GetEntryById(Guid vaultId, Guid entryId)
         {
-            String? oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            Guid userId = GetAuthenticatedUserId();
 
-            if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
-
-            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             GetVaultEntriesResponse entry = await _getVaultEntryByIdUseCase.ExecuteAsync(vaultId, entryId, userId, userIp);
 
@@ -116,13 +104,9 @@ namespace noMoreAzerty_back.Controllers
         [HttpDelete("{entryId}")]
         public async Task<IActionResult> DeleteEntry(Guid vaultId, Guid entryId)
         {
-            String? oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            Guid userId = GetAuthenticatedUserId();
 
-            if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
-
-            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             await _deleteVaultEntryUseCase.ExecuteAsync(
                 userId,
@@ -144,13 +128,9 @@ namespace noMoreAzerty_back.Controllers
             Guid entryId,
             [FromBody] UpdateVaultEntryRequest request)
         {
-            String? oidClaim = User.FindFirst("oid")?.Value
-                            ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
+            Guid userId = GetAuthenticatedUserId();
 
-            if (!Guid.TryParse(oidClaim, out var userId))
-                throw new ForbiddenException("Invalid user id");
-
-            String userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            string userIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
             GetVaultEntriesResponse updatedEntry = await _updateVaultEntryUseCase.ExecuteAsync(
                 userId,

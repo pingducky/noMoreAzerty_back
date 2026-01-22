@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using noMoreAzerty_back.Data;
@@ -7,9 +8,9 @@ using noMoreAzerty_back.Interfaces.noMoreAzerty_back.Interfaces;
 using noMoreAzerty_back.Interfaces.Services;
 using noMoreAzerty_back.Middlewares; 
 using noMoreAzerty_back.Repositories;
-using noMoreAzerty_back.UseCases.History;
 using noMoreAzerty_back.Service;
 using noMoreAzerty_back.UseCases.Entries;
+using noMoreAzerty_back.UseCases.History;
 using noMoreAzerty_back.UseCases.Users;
 using noMoreAzerty_back.UseCases.Vaults;
 
@@ -25,6 +26,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("unlock", opt => {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 20;
+    });
+});
 
 builder.Services.AddScoped<IVaultEntryHistoryRepository, VaultEntryHistoryRepository>();
 builder.Services.AddScoped<IVaultEntryHistoryService, VaultEntryHistoryService>();

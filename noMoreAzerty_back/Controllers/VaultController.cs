@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using noMoreAzerty_back.UseCases.Vaults;
 using noMoreAzerty_dto.DTOs.Request;
 using System.Security.Claims;
@@ -9,7 +10,7 @@ namespace noMoreAzerty_back.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class VaultController : ControllerBase
+    public class VaultController : BaseController
     {
         private readonly GetUserVaultsUseCase _getUserVaultsUseCase;
         private readonly GetSharedVaultsUseCase _getSharedVaultsUseCase;
@@ -50,12 +51,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("my")]
         public async Task<IActionResult> GetMyVaults()
         {
-            String? oidClaim = HttpContext.User.FindFirst("oid")?.Value
-                           ?? HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("User ID claim is not a valid GUID.");
+            Guid userId = GetAuthenticatedUserId();
 
             _logger.LogInformation("GetMyVaults called with userId: {UserId}", userId);
 
@@ -70,12 +66,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("shared")]
         public async Task<IActionResult> GetSharedVaults()
         {
-            String? oidClaim = HttpContext.User.FindFirst("oid")?.Value
-                           ?? HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("User ID claim is not a valid GUID.");
+            Guid userId = GetAuthenticatedUserId();
 
             var sharedVaults = await _getSharedVaultsUseCase.ExecuteAsync(userId);
 
@@ -88,12 +79,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateVault([FromBody] CreateVaultRequest request)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             // Création du coffre
             var vaultResponse = await _createVaultUseCase.ExecuteAsync(
@@ -112,12 +98,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpPut("{vaultId}")]
         public async Task<IActionResult> UpdateVault(Guid vaultId, [FromBody] UpdateVaultRequest request)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             var updatedVault = await _updateVaultUseCase.ExecuteAsync(
                 vaultId,
@@ -136,12 +117,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpDelete("{vaultId}")]
         public async Task<IActionResult> DeleteVault(Guid vaultId)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             await _deleteVaultUseCase.ExecuteAsync(vaultId, userId);
 
@@ -154,12 +130,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpGet("{vaultId}/users")]
         public async Task<IActionResult> GetVaultUsers(Guid vaultId)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             var result = await _getVaultUsersUseCase.ExecuteAsync(vaultId, userId);
 
@@ -172,12 +143,7 @@ namespace noMoreAzerty_back.Controllers
         [HttpPost("{vaultId}/share")]
         public async Task<IActionResult> ShareVault(Guid vaultId, [FromBody] ShareVaultRequest request)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
-
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            Guid userId = GetAuthenticatedUserId();
 
             var result = await _shareVaultUseCase.ExecuteAsync(vaultId, userId, request.UserName);
 
@@ -193,19 +159,14 @@ namespace noMoreAzerty_back.Controllers
         [HttpDelete("{vaultId}/share/{targetUserId}")]
         public async Task<IActionResult> UnshareVault(Guid vaultId, Guid targetUserId)
         {
-            string oidClaim = User.FindFirst("oid")?.Value
-                           ?? User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value
-                           ?? "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
+            Guid userId = GetAuthenticatedUserId();
 
-            if (!Guid.TryParse(oidClaim, out var userId))
-                return BadRequest("Invalid user id");
+            var result = await _unshareVaultUseCase.ExecuteAsync(vaultId, userId, targetUserId);
 
-                var result = await _unshareVaultUseCase.ExecuteAsync(vaultId, userId, targetUserId);
+            if (!result)
+                return NotFound("Le coffre n'est pas partagé avec cet utilisateur.");
 
-                if (!result)
-                    return NotFound("Le coffre n'est pas partagé avec cet utilisateur.");
-
-                return Ok(new { message = "Partage supprimé avec succès." });
+            return Ok(new { message = "Partage supprimé avec succès." });
         }
     }
 }
